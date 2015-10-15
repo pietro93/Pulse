@@ -1,4 +1,4 @@
-﻿html, body{
+html, body{
     height:100%;
 }
 
@@ -9,7 +9,7 @@ container {
   top: 0; left: 0px; bottom: 0; right: 0;  
   width: 75%;
   padding-bottom: 75%;
-  /*background: green;*/
+  background: black;
   contourst-style: none;
 }
 
@@ -19,7 +19,7 @@ amoeba {
     margin-top: 30%; margin-left:30%;
     width: 60%;
     height: 60%;
-    animation: pulse 10s linear alternate infinite;
+    animation: pulse 5s alternate infinite;
 }
 
 shape {
@@ -28,6 +28,7 @@ shape {
   height: inherit;
   opacity: 0.2;
   }
+
   
 shape:nth-child(n){
   
@@ -35,35 +36,35 @@ shape:nth-child(n){
 
 
 shape:nth-child(odd) {
-  background: #565456; /*grey*/
+  background: Blue;
 }
 
 shape:nth-child(even) {
-     background: #886B88; /*dark purple*/
+  background: MediumAquaMarine;
+ 
 }
 
 shape:nth-child(3n) {
-     background: #ACAAAC; /*lighter grey*/
+    background: AliceBlue;
 }
 
 shape:nth-child(4n) {
-     background: #6C556C; /*lighter purple*/
+   background: Azure;
 }
 
 shape:nth-child(2n+3) {
-     background: #331933; /*grey-purple*/
+    background:MediumBlue;
 }
 
 shape:nth-child(3n+1) {
-     background: #140014; /*dark grey-purple*/
+    background: PowderBlue;
 }
 
 /* animations */
 @keyframes pulserotate {
- 0% { -webkit-transform: rotate(360deg) scale(1.2);}
+ 0% { -webkit-transform: rotate(360deg) scale(0.9);}
 }
 
 @keyframes pulse {
  0% { -webkit-transform: scale(0.8);}
 }
-
