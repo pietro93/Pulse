@@ -1,8 +1,26 @@
 ﻿var amoeba = document.createElement('amoeba');
+amoeba.setAttribute("onclick", "transition()");
 var container = document.getElementById('container');
+var status = "neutral";
 
 function setStyle(style) {
-    document.head.innerHTML.anchor('<link href="css/'+ style +'.css" rel="stylesheet" />');
+    document.getElementById('stylesheet').setAttribute('href', 'css/'+style+'.css');
+}
+
+function neutral_to_excited() {
+    var shapes = document.querySelectorAll("shape");
+    shapes.style.setAttribute("background", "green");
+}
+
+function transition() {
+    if (status == 'neutral') {
+        setStyle('excited');
+        this.status = 'excited';
+    }
+    else if (status == 'excited') {
+        setStyle('neutral');
+        this.status = 'neutral';
+    }
 }
 
 function addShape(type) {
@@ -10,15 +28,14 @@ function addShape(type) {
     var border_radius;
     if (type == 'neutral'){
         time = Math.floor((Math.random() * 30) + 15);
-        border_radius = 15;
     }
     else if (type == 'calm') {
         time = Math.floor((Math.random() * 45) + 40);
-        border_radius = 50;
+        
     }
     else if (type == 'excited') {
-        time = Math.floor((Math.random() * 30) + 10);
-        border_radius = 0;
+        time = Math.floor((Math.random() * 20) + 5);
+        
     }
     else {
         return;
@@ -30,13 +47,31 @@ function addShape(type) {
     }
 
 function addNeutral() {
-    for (var i = 0; i <= 10;i++) {
-        addShape('calm');
-        
+    for (var i = 0; i <= 50;i++) {
+        addShape('neutral');
     }
     container.appendChild(amoeba);
-    amoeba.style.cssText = ("animation: pulse " + 10+ "s alternate infinite;")
+    amoeba.style.cssText = ("animation: pulse " + 20 + "s ease-in alternate infinite;");
 }
 
-setStyle('calm');
+function addCalm() {
+    for (var i = 0; i <= 10; i++) {
+        addShape('calm');
+    }
+    container.appendChild(amoeba);
+    amoeba.style.cssText = ("animation: pulse " + 15 + "s ease-in-out alternate infinite;")
+}
+
+function addExcited() {
+    for (var i = 0; i <= 100; i++) {
+        addShape('excited');
+    }
+    container.appendChild(amoeba);
+    amoeba.style.cssText = ("animation: pulse " + 5 + "s  linear alternate infinite;")
+}
+
+
 addNeutral();
+
+
+

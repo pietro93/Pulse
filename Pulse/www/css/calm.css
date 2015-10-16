@@ -10,7 +10,7 @@ container {
   width: 75%;
   padding-bottom: 75%;
   background: black;
-  contourst-style: none;
+
 }
 
 amoeba {
@@ -27,6 +27,7 @@ shape {
   width: inherit;
   height: inherit;
   opacity: 0.2;
+  border-radius: 50px;
   }
 
   
