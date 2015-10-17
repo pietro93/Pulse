@@ -1,4 +1,4 @@
-﻿var amoeba = document.createElement('amoeba');
+﻿var amoeba = document.getElementById('amoeba');
 amoeba.setAttribute("onclick", "transition()");
 var container = document.getElementById('container');
 var status = "neutral";
@@ -7,25 +7,10 @@ function setStyle(style) {
     document.getElementById('stylesheet').setAttribute('href', 'css/'+style+'.css');
 }
 
-function neutral_to_excited() {
-    var shapes = document.querySelectorAll("shape");
-    shapes.style.setAttribute("background", "green");
-}
-
-function transition() {
-    if (status == 'neutral') {
-        setStyle('excited');
-        this.status = 'excited';
-    }
-    else if (status == 'excited') {
-        setStyle('neutral');
-        this.status = 'neutral';
-    }
-}
-
 function addShape(type) {
     var time;
     var border_radius;
+    var deg = Math.floor((Math.random() * 360) - 360);
     if (type == 'neutral'){
         time = Math.floor((Math.random() * 30) + 15);
     }
@@ -34,28 +19,36 @@ function addShape(type) {
         
     }
     else if (type == 'excited') {
-        time = Math.floor((Math.random() * 20) + 5);
+        time = Math.floor((Math.random() * 20) + 10);
         
     }
     else {
         return;
     }
     s = document.createElement('shape');
-    s.style.cssText = ("border-radius: " + border_radius + "px; " +
+    s.style.cssText = ("transform: rotate("+deg+"deg); " +
         "animation: pulserotate "+ time +"s linear alternate infinite;")
     amoeba.appendChild(s);
-    }
+}
 
 function addNeutral() {
-    for (var i = 0; i <= 50;i++) {
+    for (var i = 0; i <= 100;i++) {
         addShape('neutral');
     }
-    container.appendChild(amoeba);
-    amoeba.style.cssText = ("animation: pulse " + 20 + "s ease-in alternate infinite;");
+    amoeba.style.cssText = ("animation: mediumpulse " + 20 + "s ease-in alternate infinite;");
+    $("amoeba").click(function () {
+        $("container").animate({
+            background: red,
+            width: "+20%",
+            height: "+20%",
+            opacity: 0.9
+        }, 5)
+    });
+
 }
 
 function addCalm() {
-    for (var i = 0; i <= 10; i++) {
+    for (var i = 0; i <= 15; i++) {
         addShape('calm');
     }
     container.appendChild(amoeba);
@@ -70,8 +63,5 @@ function addExcited() {
     amoeba.style.cssText = ("animation: pulse " + 5 + "s  linear alternate infinite;")
 }
 
-
+setStyle('neutral');
 addNeutral();
-
-
-
