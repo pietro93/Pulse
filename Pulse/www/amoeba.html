@@ -12,10 +12,10 @@
 <body>
     <container id="container">
         <amoeba id="amoeba"></amoeba>
-        <script type="text/javascript" src="scripts/visuals.js"></script>
+        <script type="text/javascript" src="scripts/amoeba.js"></script>
         <script type="text/javascript" src="scripts/swipe.js"></script>
         <script type="text/javascript">
-            addNeutral();
+            createAmoeba();
 
             $("#container").swipe({
                 swipeUp: function (event, direction, distance, duration) {
