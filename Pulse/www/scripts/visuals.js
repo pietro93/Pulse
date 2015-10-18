@@ -1,5 +1,4 @@
 ﻿var amoeba = document.getElementById('amoeba');
-amoeba.setAttribute("onclick", "transition()");
 var container = document.getElementById('container');
 var status = "neutral";
 
@@ -7,44 +6,80 @@ function setStyle(style) {
     document.getElementById('stylesheet').setAttribute('href', 'css/'+style+'.css');
 }
 
+function rand(min, max) {
+    return Math.floor(Math.random() * max) + min;
+}
+
 function addShape(type) {
     var time;
     var border_radius;
-    var deg = Math.floor((Math.random() * 360) - 360);
+    var opacity = "0.2";
+    var animation;
+    var deg = rand(-360, 360);
+
     if (type == 'neutral'){
-        time = Math.floor((Math.random() * 30) + 15);
+        time = rand(20,30);
+        animation = "pulserotate";
     }
     else if (type == 'calm') {
-        time = Math.floor((Math.random() * 45) + 40);
-        
+        time = rand(30,40);
+        animation = "shrink";
     }
     else if (type == 'excited') {
-        time = Math.floor((Math.random() * 20) + 10);
-        
+        time = rand(10, 20);
+        opacity = "0";
+        animation = "expand";
     }
-    else {
-        return;
-    }
+    
     s = document.createElement('shape');
-    s.style.cssText = ("transform: rotate("+deg+"deg); " +
-        "animation: pulserotate "+ time +"s linear alternate infinite;")
+    s.style.cssText = ("transform: rotate("+deg+"deg); opacity: " + opacity +
+        "; animation: " + animation + " " + time + "s linear alternate infinite ")
     amoeba.appendChild(s);
 }
 
 function addNeutral() {
-    for (var i = 0; i <= 100;i++) {
+    for (var i = 0; i < 50; i++) {
+        addShape('excited');
+    }
+    for (var i = 0; i < 40; i++) {
         addShape('neutral');
     }
-    amoeba.style.cssText = ("animation: mediumpulse " + 20 + "s ease-in alternate infinite;");
-    $("amoeba").click(function () {
-        $("container").animate({
-            background: red,
-            width: "+20%",
-            height: "+20%",
-            opacity: 0.9
-        }, 5)
-    });
+    for (var i = 0; i < 10;i++) {
+        addShape('calm');
+    }
+    amoeba.style.cssText = ("animation: pulsate " + 15 + "s linear alternate infinite;");
+}
 
+function excite() {
+    $("#amoeba  :nth-child(even)").css({ "background": "red" });
+    $("#amoeba :nth-child(odd)").css({ "background": "orange" });
+    $("#amoeba > *").animate({
+        "opacity":"0.2",
+        "border-radius": "1px",
+        height: "70%", width: "70%"}, 1000);
+    status = "excited";
+}
+
+function cooldown() {
+    $("#amoeba :nth-child(even)").css({ "background": "blue" });
+    $("#amoeba :nth-child(odd)").css({ "background": "cyan"});
+    $("#amoeba :nth-child(-n+90)").css({ "opacity": "0"});
+    $("#amoeba > *").animate({
+        "border-radius": "50px",
+        height: "55%", width: "55%"}, 1000);
+    status = "calm";
+}
+
+function normalise() {
+    $("#amoeba :nth-child(even)").css({ "background": "purple" });
+    $("#amoeba :nth-child(odd)").css({ "background": "grey" });
+    $("#amoeba :nth-child(-n+80)").css({ "opacity": "0.2" });
+    $("#amoeba :nth-child(-n+50)").css({ "opacity": "0" });
+    $("#amoeba > *").animate({
+        "border-radius": "25px",
+        height: "60%", width: "60%"
+    }, 1000);
+    status = "neutral";
 }
 
 function addCalm() {
@@ -56,12 +91,23 @@ function addCalm() {
 }
 
 function addExcited() {
-    for (var i = 0; i <= 100; i++) {
+    for (var i = 0; i <= 50; i++) {
         addShape('excited');
     }
-    container.appendChild(amoeba);
     amoeba.style.cssText = ("animation: pulse " + 5 + "s  linear alternate infinite;")
 }
 
-setStyle('neutral');
-addNeutral();
+
+//$("container").click(function () {
+//    if (status == "neutral")
+//        cooldown();
+//    if (status == "calm") {
+//        normalise();
+//        excite();
+//    }
+//    if (status == "excited") {
+//        normalise();
+//        cooldown();
+//    }
+//})
+

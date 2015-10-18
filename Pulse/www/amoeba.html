@@ -6,26 +6,40 @@
     <script src="http://www.google.com/jsapi"></script>
     <script type="text/javascript">google.load("jqueryui", "1.5.2")</script>
     <script type="text/javascript" src="https://ajax.microsoft.com/ajax/jQuery/jquery-1.4.2.min.js"></script>
+    
+  
 </head>
 <body>
     <container id="container">
         <amoeba id="amoeba"></amoeba>
-        <script type="text/javascript" src="scripts/visuals.js">
-        </script>
+        <script type="text/javascript" src="scripts/visuals.js"></script>
+        <script type="text/javascript" src="scripts/swipe.js"></script>
         <script type="text/javascript">
-            $("container").click(function () {
-                $("#amoeba  :nth-child(even)").css({ "background": "red", "height": "70%", "width": "70%", "animation": "pulserotate 15s linear alternate infinite" });
-                $("#amoeba :nth-child(odd)").css({ "background": "orange", "height": "72%", "width": "72%", "animation": "pulserotate 20s linear alternate infinite" });
-                $("#amoeba  shape:nth-child(5n)").css({ "background": "red", "opacity":"0.2", "height": "68%", "width": "68%", "animation": "pulserotate 5s linear alternate infinite" });
-                $("#amoeba > *").animate({
-                    "border-radius": "1px",
-   
-                }, 1000)
-                $("#amoeba").animate({
-                    "animation": "largepulse 1s linear alternate infinite"
-                });
-            })
-        </script> 
+            addNeutral();
+
+            $("#container").swipe({
+                swipeUp: function (event, direction, distance, duration) {
+                    if (status == "neutral") {
+                        excite();
+                    }
+                    else if (status == "calm") {
+                        normalise();
+                    }
+                    console.log("Warming up...")
+                },
+                swipeDown: function (event, direction, distance, duration) {
+                    if (status == "neutral") {
+                        cooldown();
+                    }
+                    else if (status == "excited") {
+                        normalise();
+                    }
+                    console.log("Cooling down...")
+                },
+            });
+
+        </script>
+
     </container>
 </body>
 </html>
