@@ -33,8 +33,8 @@ function addShape(type) {
     }
     
     s = document.createElement('shape');
-    s.style.cssText = ("transform: rotate("+deg+"deg); opacity: " + opacity +
-        "; animation: " + animation + " " + time + "s linear alternate infinite ")
+    s.style.cssText = ("transform: rotate(" + deg + "deg); opacity: " + opacity +
+        "; animation: " + animation + " " + time + "s linear alternate infinite ");
     amoeba.appendChild(s);
 }
 
@@ -59,7 +59,7 @@ function excite() {
         "border-radius": "1px",
         height: "70%", width: "70%"}, 1000);
     status = "excited";
-    $("#amoeba").css({ "animation": "pulsate " + 10 + "s linear alternate infinite" });
+    $("#amoeba").css({ "animation": "pulsate " + 5 + "s linear alternate infinite" });
 }
 
 function cooldown() {
@@ -71,7 +71,7 @@ function cooldown() {
         height: "55%", width: "55%"
     }, 1000);
     status = "calm";
-    amoeba.style.cssText = ("animation: pulsate " + 25 + "s linear alternate infinite;");
+    $("#amoeba").css({ "animation": "pulsate " + 25 + "s linear alternate infinite" });
 }
 
 function normalise() {
@@ -84,5 +84,5 @@ function normalise() {
         height: "60%", width: "60%"
     }, 1000);
     status = "neutral";
-    amoeba.style.cssText = ("animation: pulsate " + 15 + "s linear alternate infinite;");
+    $("#amoeba").css({ "animation": "pulsate " + 15 + "s linear alternate infinite" });
 }
