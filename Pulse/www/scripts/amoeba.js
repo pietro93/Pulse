@@ -1,10 +1,10 @@
 ﻿var amoeba = document.getElementById('amoeba');
 var container = document.getElementById('container');
+var status = "neutral";
 
+// Square container by setting its height equal to screenwidth
 var x = $(container).width();
 $(container).css({ "height": x });
-
-var status = "neutral";
 
 // Get random number
 function rand(min, max) {
