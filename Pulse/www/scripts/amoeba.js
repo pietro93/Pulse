@@ -1,6 +1,9 @@
 ﻿var amoeba = document.getElementById('amoeba');
 var container = document.getElementById('container');
 
+var x = $(container).width();
+$(container).css({"height": x});
+
 var status = "neutral";
 
 // Get random number
@@ -33,8 +36,11 @@ function addShape(type) {
     }
     
     s = document.createElement('shape');
-    s.style.cssText = ("transform: rotate(" + deg + "deg); opacity: " + opacity +
-        "; animation: " + animation + " " + time + "s linear alternate infinite ");
+    s.style.cssText = ("-webkit-transform: rotate(" + deg + "deg); -moz-transform: rotate(" + deg + "deg); " +
+        "o-transform: rotate(" + deg + "deg); ms-transform: rotate(" + deg + "deg); opacity: " + opacity +
+        "; -webkit-animation: " + animation + " " + time + "s linear alternate infinite; " + 
+        "-moz-animation: " + animation + " " + time + "s linear alternate infinite; -o-animation: " + animation +
+        " " + time + "s linear alternate infinite");
     amoeba.appendChild(s);
 }
 
@@ -48,7 +54,7 @@ function createAmoeba() {
     for (var i = 0; i < 10;i++) {
         addShape('calm');
     }
-    amoeba.style.cssText = ("animation: pulsate " + 15 + "s linear alternate infinite;");
+    amoeba.style.cssText = ("-webkit-animation: pulsate " + 15 + "s linear alternate infinite;");
 }
 
 function excite() {
@@ -59,7 +65,7 @@ function excite() {
         "border-radius": "1px",
         height: "70%", width: "70%"}, 1000);
     status = "excited";
-    $("#amoeba").css({ "animation": "pulsate " + 5 + "s linear alternate infinite" });
+    $("#amoeba").css({ "-webkit-animation": "pulsate " + 5 + "s linear alternate infinite" });
 }
 
 function cooldown() {
@@ -71,7 +77,10 @@ function cooldown() {
         height: "55%", width: "55%"
     }, 1000);
     status = "calm";
-    $("#amoeba").css({ "animation": "pulsate " + 25 + "s linear alternate infinite" });
+    $("#amoeba").css({ "-webkit-animation": "pulsate " + 25 + "s linear alternate infinite",
+        "-moz-animation": "pulsate " + 25 + "s linear alternate infinite",
+        "-o-animation": "pulsate " + 25 + "s linear alternate infinite;"
+    });
 }
 
 function normalise() {
@@ -84,5 +93,5 @@ function normalise() {
         height: "60%", width: "60%"
     }, 1000);
     status = "neutral";
-    $("#amoeba").css({ "animation": "pulsate " + 15 + "s linear alternate infinite" });
+    $("#amoeba").css({ "-webkit-animation": "pulsate " + 15 + "s linear alternate infinite" });
 }
