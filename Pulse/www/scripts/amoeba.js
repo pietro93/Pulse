@@ -1,6 +1,8 @@
 ﻿var amoeba = document.getElementById('amoeba');
 var container = document.getElementById('container');
 
+square(container);
+
 var status = "neutral";
 
 // Get random number
@@ -35,10 +37,13 @@ function addShape(type) {
     s = document.createElement('shape');
     s.style.cssText = ("transform: rotate(" + deg + "deg); opacity: " + opacity +
         "; animation: " + animation + " " + time + "s linear alternate infinite ");
+    square(s);
     amoeba.appendChild(s);
 }
 
 function createAmoeba() {
+    square(amoeba);
+
     for (var i = 0; i < 50; i++) {
         addShape('excited');
     }
@@ -49,6 +54,7 @@ function createAmoeba() {
         addShape('calm');
     }
     amoeba.style.cssText = ("animation: pulsate " + 15 + "s linear alternate infinite;");
+    normalise();
 }
 
 function excite() {
@@ -57,7 +63,8 @@ function excite() {
     $("#amoeba > *").animate({
         "opacity":"0.2",
         "border-radius": "1px",
-        height: "70%", width: "70%"}, 1000);
+        width: "70%", height: "70%"
+    }, 1000);
     status = "excited";
     $("#amoeba").css({ "animation": "pulsate " + 5 + "s linear alternate infinite" });
 }
@@ -68,7 +75,7 @@ function cooldown() {
     $("#amoeba :nth-child(-n+90)").css({ "opacity": "0"});
     $("#amoeba > *").animate({
         "border-radius": "50px",
-        height: "55%", width: "55%"
+        width: "60%", height: "60%"
     }, 1000);
     status = "calm";
     $("#amoeba").css({ "animation": "pulsate " + 25 + "s linear alternate infinite" });
@@ -81,8 +88,17 @@ function normalise() {
     $("#amoeba :nth-child(-n+50)").css({ "opacity": "0" });
     $("#amoeba > *").animate({
         "border-radius": "20px",
-        height: "60%", width: "60%"
+        width: "65%", height: "65%"
     }, 1000);
     status = "neutral";
     $("#amoeba").css({ "animation": "pulsate " + 15 + "s linear alternate infinite" });
+}
+
+function square(element) {
+    var x = $(element).width();
+    $(element).css(
+        { 'height': x + 'px' }
+    );
+    var y = $(element).height();
+    console.log(element.id + " width: " + x, "height: " + y)
 }

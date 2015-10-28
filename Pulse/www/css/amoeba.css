@@ -1,31 +1,31 @@
 ﻿html, body{
-    height:100%;
     background: black;
+    overflow: hidden;
 }
 
-container {
+.container-fluid{
   position: relative;
   display:block;
   margin: auto;
-  width: 100%;
-  padding-bottom: 100%;
-  background: black;
+  background: green;
 }
 
 amoeba {
     position:absolute;
     display: inline;
-    margin-top: 33%; margin-left:33%;
-    width: 60%;
-    height: 60%;
+    width: 80%;
+    height: 80%;
     animation: largepulse 10s linear alternate infinite;
     transition: all 10s;
 }
 
 shape {
   position: absolute;
-  width: inherit;
-  height: inherit;
+  vertical-align: middle;
+  margin: auto;
+  top: 0; bottom: 0; left:0; right: 0;
+  width:65%;
+  height:65%;
   opacity: 0.2;
   border-radius: 20px;
   }
@@ -35,39 +35,57 @@ shape:nth-child(n){
 }
 
 shape:nth-child(odd) {
-  background: Grey;
+  background: #372140;
 }
 
 shape:nth-child(even) {
-  background: MediumPurple;
+  background: #242121;
 }
 
 /* animations */
 @keyframes pulserotate {
- 0% { -webkit-transform: rotate(360deg) scale(1.1);}
+ 0% { -webkit-transform: rotate(360deg) scale(1.1);
+      -moz-transform: rotate(360deg) scale(1.1);
+      -o-transform: rotate(360deg) scale(1.1);
+      -ms-transform: rotate(360deg) scale(1.1);
+ }
 }
 
 @keyframes shrink {
     0% {
         -webkit-transform: rotate(360deg) scale(0.8);
+        -moz-transform: rotate(360deg) scale(0.8);
+        -o-transform: rotate(360deg) scale(0.8);
+        -ms-transform: rotate(360deg) scale(0.8);
     }
 }
 
 @keyframes expand {
     0% {
         -webkit-transform: rotate(360deg) scale(1.4);
+        -moz-transform: rotate(360deg) scale(0.8);
+        -o-transform: rotate(360deg) scale(0.8);
+        -ms-transform: rotate(360deg) scale(0.8);
     }
 }
 
 @keyframes pulsate {
     25% {
         -webkit-transform: scale(1.2);
+        -moz-transform: scale(1.2);
+        -o-transform: scale(1.2);
+        -ms-transform: scale(1.2);
     }
     50% {
         -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -o-transform: scale(1);
+        -ms-transform: scale(1);
     }
     100% {
         -webkit-transform: scale(0.9);
+        -moz-transform: scale(0.9);
+        -o-transform: scale(0.9);
+        -ms-transform: scale(0.9);
     }
-
 }

@@ -2,15 +2,34 @@
 <html>
 <head>
     <title>Pulsing Amoeba</title>
+
+    <!-- JQuery + JQuery Mobile-->
+    <!--<script src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">google.load("jqueryui", "1.5.2")</script>-->
+    <script src="scripts/jquery-1.9.1.js"></script>
+    <script>$(document).bind('mobileinit',function(){
+        $.mobile.pushStateEnabled = false;
+    });</script>
+    <script src="scripts/jquery.mobile-1.4.5.min.js"></script>
+
+
+    <!-- Bootstrap -->
+    <link id="stylesheet" href="css/bootstrap.css" rel="stylesheet" />
+    <script src="scripts/bootstrap.min.js"></script>
+
+    <!-- Custom CSS -->
     <link id="stylesheet" href="css/amoeba.css" rel="stylesheet" />
-    <script src="http://www.google.com/jsapi"></script>
+
+    <!--<script src="http://www.google.com/jsapi"></script>
     <script type="text/javascript">google.load("jqueryui", "1.5.2")</script>
-    <script type="text/javascript" src="https://ajax.microsoft.com/ajax/jQuery/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="https://ajax.microsoft.com/ajax/jQuery/jquery-1.4.2.min.js"></script>-->
+
+
     
   
 </head>
 <body>
-    <container id="container">
+    <container-fluid id="container">
         <amoeba id="amoeba"></amoeba>
         <script type="text/javascript" src="scripts/amoeba.js"></script>
         <script type="text/javascript" src="scripts/swipe.js"></script>
@@ -40,6 +59,6 @@
 
         </script>
 
-    </container>
+    </container-fluid>
 </body>
 </html>
