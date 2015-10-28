@@ -6,7 +6,9 @@
 container {
   position: relative;
   display:block;
+  vertical-align: middle;
   margin: auto;
+  top: 20%; left: 0; right: 0; bottom: 0;
   width: 100%;
   background: black;
 }
@@ -14,7 +16,7 @@ container {
 amoeba {
     position:absolute;
     display: inline;
-    margin-top: 33%; margin-left:33%;
+    margin-top: 30%; margin-left:30%;
     width: 60%;
     height: 60%;
     transform: translate3d(0,0,0);          /*  force hardware accelleration on mobile devices */    
@@ -37,14 +39,6 @@ shape:nth-child(n){
   -webkit-transition: all 10s;
   -moz-transition: all 10s;
   -o-transition: all 10s;
-}
-
-shape:nth-child(odd) {
-  background: Grey;
-}
-
-shape:nth-child(even) {
-  background: MediumPurple;
 }
 
 /* animations */

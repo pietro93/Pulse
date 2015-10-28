@@ -2,13 +2,22 @@
 var container = document.getElementById('container');
 
 var x = $(container).width();
-$(container).css({"height": x});
+$(container).css({ "height": x });
 
 var status = "neutral";
 
 // Get random number
 function rand(min, max) {
     return Math.floor(Math.random() * max) + min;
+}
+
+// Set animation
+function setAnimation(element, animation, time) {
+    $(element).css({
+        "-webkit-animation": animation + " " + time + "s linear alternate infinite",
+        "-moz-animation": animation + " " + time + "s linear alternate infinite",
+        "-o-animation": animation + " " + time + "s linear alternate infinite;"
+    });
 }
 
 // Add 'shape' that will make up the amoeba.
@@ -38,9 +47,8 @@ function addShape(type) {
     s = document.createElement('shape');
     s.style.cssText = ("-webkit-transform: rotate(" + deg + "deg); -moz-transform: rotate(" + deg + "deg); " +
         "o-transform: rotate(" + deg + "deg); ms-transform: rotate(" + deg + "deg); opacity: " + opacity +
-        "; -webkit-animation: " + animation + " " + time + "s linear alternate infinite; " + 
-        "-moz-animation: " + animation + " " + time + "s linear alternate infinite; -o-animation: " + animation +
-        " " + time + "s linear alternate infinite");
+        ";");
+    setAnimation(s, animation, time);
     amoeba.appendChild(s);
 }
 
@@ -54,7 +62,8 @@ function createAmoeba() {
     for (var i = 0; i < 10;i++) {
         addShape('calm');
     }
-    amoeba.style.cssText = ("-webkit-animation: pulsate " + 15 + "s linear alternate infinite;");
+    setAnimation(amoeba, "pulsate", 15)
+    normalise()
 }
 
 function excite() {
@@ -65,7 +74,7 @@ function excite() {
         "border-radius": "1px",
         height: "70%", width: "70%"}, 1000);
     status = "excited";
-    $("#amoeba").css({ "-webkit-animation": "pulsate " + 5 + "s linear alternate infinite" });
+    setAnimation(amoeba, "pulsate", 3)
 }
 
 function cooldown() {
@@ -74,13 +83,10 @@ function cooldown() {
     $("#amoeba :nth-child(-n+90)").css({ "opacity": "0"});
     $("#amoeba > *").animate({
         "border-radius": "50px",
-        height: "55%", width: "55%"
+        height: "65%", width: "65%"
     }, 1000);
     status = "calm";
-    $("#amoeba").css({ "-webkit-animation": "pulsate " + 25 + "s linear alternate infinite",
-        "-moz-animation": "pulsate " + 25 + "s linear alternate infinite",
-        "-o-animation": "pulsate " + 25 + "s linear alternate infinite;"
-    });
+    setAnimation(amoeba, "pulsate", 25)
 }
 
 function normalise() {
@@ -90,8 +96,8 @@ function normalise() {
     $("#amoeba :nth-child(-n+50)").css({ "opacity": "0" });
     $("#amoeba > *").animate({
         "border-radius": "20px",
-        height: "60%", width: "60%"
+        height: "67%", width: "67%"
     }, 1000);
     status = "neutral";
-    $("#amoeba").css({ "-webkit-animation": "pulsate " + 15 + "s linear alternate infinite" });
+    setAnimation(amoeba, "pulsate", 15);
 }
