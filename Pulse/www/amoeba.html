@@ -12,39 +12,87 @@
 
     <!-- Custom CSS -->
     <link id="stylesheet" href="css/amoeba.css" rel="stylesheet" />
-  
+        
+    <!-- Custom Scripts -->
+    <script type="text/javascript" src="scripts/audio.js"></script>
+    <script type="text/javascript" src="scripts/swipe.js"></script>
+
 </head>
 <body>
-    <container id="container">
-        <amoeba id="amoeba"></amoeba>
-        <script type="text/javascript" src="scripts/amoeba.js"></script>
-        <script type="text/javascript" src="scripts/swipe.js"></script>
-        <script type="text/javascript">
-            createAmoeba();
 
+        <container id="container">
+            <amoeba id="amoeba"></amoeba>
+        </container>
+
+        <script type="text/javascript" src="scripts/amoeba.js"></script>
+        
+        <script type="text/javascript">
+            square(container)
+            createAmoeba()
+            //Set swiping properties
             $("#container").swipe({
                 swipeUp: function (event, direction, distance, duration) {
                     if (status == "neutral") {
                         excite();
+                        play(happiness);
                     }
                     else if (status == "calm") {
                         normalise();
+                        play(neutral);
+                    }
+                    else if (status == "petrified") {
+                        lightUp();
+                        play(neutral);
+                    }
+                    else if (status == "ignated") {
+                        petrify();
+                        play(neutral);
                     }
                     console.log("Warming up...")
                 },
                 swipeDown: function (event, direction, distance, duration) {
                     if (status == "neutral") {
                         cooldown();
+                        play(sadness);
                     }
                     else if (status == "excited") {
                         normalise();
+                        play(neutral);
                     }
+                    else if (status == "petrified") {
+                        ignate();
+                        play(neutral);
+                    }
+                    else if (status == "lit") {
+                            petrify();
+                            play(neutral);
+                        }
                     console.log("Cooling down...")
                 },
+                swipeLeft: function (event, direction, distance, duration) {
+                    if (status == "neutral") {
+                        petrify();
+                        play(sadness);
+                    }
+                    else if (status == "petrified") {
+                        normalise();
+                        play(neutral);
+                    }
+                    console.log("Switching amoeba...")
+                },
+                swipeRight: function (event, direction, distance, duration) {
+                    if (status == "neutral") {
+                        petrify();
+                        play(sadness);
+                    }
+                    else if (status == "petrified") {
+                        normalise();
+                        play(neutral);
+                    }
+                    console.log("Switching amoeba...")
+                },
             });
-
         </script>
 
-    </container>
 </body>
 </html>

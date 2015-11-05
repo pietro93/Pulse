@@ -1,4 +1,4 @@
-﻿html, body{
+﻿html, body {
     height:100%; width:100%;
     background: black;
     overflow-x: hidden;
@@ -8,6 +8,7 @@
 body {
     position: relative
 }
+
 
 container {
   position: relative;

@@ -1,11 +1,10 @@
-﻿var amoeba = document.getElementById('amoeba');
+﻿var amoeba = document.getElementById('amoeba2');
+var container = document.getElementById('container2');
 var status = "neutral";
 
 // Square container by setting its height equal to screenwidth
-function square(element) {
-    var x = $(element).width();
-    $(element).css({ "height": x });
-}
+var x = $(container).width();
+$(container).css({ "height": x });
 
 // Get random number
 function rand(min, max) {
@@ -53,7 +52,7 @@ function addShape(type) {
     amoeba.appendChild(s);
 }
 
-function createAmoeba() {
+function createAmoeba2() {
     for (var i = 0; i < 50; i++) {
         addShape('excited');
     }
@@ -68,8 +67,8 @@ function createAmoeba() {
 }
 
 function excite() {
-    $("#amoeba  :nth-child(even)").css({ "background": "red" });
-    $("#amoeba :nth-child(odd)").css({ "background": "orangered" });
+    $("#amoeba  :nth-child(even)").css({ "background": "green" });
+    $("#amoeba :nth-child(odd)").css({ "background": "darkgreen" });
     $("#amoeba > *").animate({
         "opacity":"0.2",
         "border-radius": "1px",
@@ -80,8 +79,8 @@ function excite() {
 }
 
 function cooldown() {
-    $("#amoeba :nth-child(even)").css({ "background": "blue" });
-    $("#amoeba :nth-child(odd)").css({ "background": "cyan"});
+    $("#amoeba :nth-child(even)").css({ "background": "red" });
+    $("#amoeba :nth-child(odd)").css({ "background": "yellow"});
     $("#amoeba :nth-child(-n+90)").css({ "opacity": "0"});
     $("#amoeba > *").animate({
         "border-radius": "50px",
@@ -94,7 +93,7 @@ function cooldown() {
 
 function normalise() {
     $("#amoeba :nth-child(even)").css({ "background": "grey" });
-    $("#amoeba :nth-child(odd)").css({ "background": "mediumpurple" });
+    $("#amoeba :nth-child(odd)").css({ "background": "white" });
     $("#amoeba :nth-child(-n+80)").css({ "opacity": "0.2" });
     $("#amoeba :nth-child(-n+50)").css({ "opacity": "0" });
     $("#amoeba > *").animate({
@@ -104,44 +103,4 @@ function normalise() {
     status = "neutral";
     setAnimation(amoeba, "pulsate", 15);
     play(neutral);
-}
-
-function petrify() {
-    $("#amoeba :nth-child(even)").css({ "background": "grey" });
-    $("#amoeba :nth-child(odd)").css({ "background": "black" });
-    $("#amoeba :nth-child(-n+80)").css({ "opacity": "0.2" });
-    $("#amoeba :nth-child(-n+50)").css({ "opacity": "0" });
-    $("#amoeba > *").animate({
-        "border-radius": "15px",
-        height: "67%", width: "67%"
-    }, 1000);
-    status = "petrified";
-    setAnimation(amoeba, "pulsate", 20);
-    play(neutral);
-}
-
-function ignate() {
-    $("#amoeba :nth-child(even)").css({ "background": "red", "opacity":"0.1" });
-    $("#amoeba :nth-child(odd)").css({ "background": "grey"  });
-    $("#amoeba :nth-child(-n+90)").css({ "opacity": "0" });
-    $("#amoeba > *").animate({
-        "border-radius": "50px",
-        height: "65%", width: "65%"
-    }, 1000);
-    status = "ignated";
-    setAnimation(amoeba, "pulsate", 20)
-    play(sadness);
-}
-
-function lightUp() {
-    $("#amoeba  :nth-child(even)").css({ "background": "green"});
-    $("#amoeba :nth-child(odd)").css({ "background": "white" });
-    $("#amoeba > *").animate({
-        "opacity": "0.1",
-        "border-radius": "50px",
-        height: "70%", width: "70%"
-    }, 1000);
-    status = "lit";
-    setAnimation(amoeba, "pulsate", 20);
-    play(happiness);
 }
