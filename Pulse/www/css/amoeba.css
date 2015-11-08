@@ -95,3 +95,24 @@ shape:nth-child(n){
         -ms-transform: scale(0.9);
     }
 }
+
+@-webkit-keyframes largePulse {
+    25% {
+        -webkit-transform: scale(0.7);
+        -moz-transform: scale(0.7);
+        -o-transform: scale(0.7);
+        -ms-transform: scale(0.7);
+    }
+    50% {
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -o-transform: scale(1);
+        -ms-transform: scale(1);
+    }
+    100% {
+        -webkit-transform: scale(1.4);
+        -moz-transform: scale(1.4);
+        -o-transform: scale(1.4);
+        -ms-transform: scale(1.4);
+    }
+}

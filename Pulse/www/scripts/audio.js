@@ -5,7 +5,6 @@ var neutral = new Audio('sounds/neutral.wav');
 var current = new Audio();
 current.loop = true;
 
-
 function play(file) {
     stop()
     current.src = file.src;

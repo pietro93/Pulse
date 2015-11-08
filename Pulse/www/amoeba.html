@@ -32,64 +32,64 @@
             //Set swiping properties
             $("#container").swipe({
                 swipeUp: function (event, direction, distance, duration) {
-                    if (status == "neutral") {
-                        excite();
-                        play(happiness);
-                    }
-                    else if (status == "calm") {
-                        normalise();
-                        play(neutral);
-                    }
-                    else if (status == "petrified") {
-                        lightUp();
-                        play(neutral);
-                    }
-                    else if (status == "ignated") {
-                        petrify();
-                        play(neutral);
-                    }
+                    switch(getStatus()){
+                        case "neutral":
+                            excite();
+                            break;
+                        case "calm":
+                            neutralise();
+                            break;
+                        case "normal":
+                            lightUp();
+                            break;
+                        case "ignited":
+                            normalise();
+                            break;
+                    } 
                     console.log("Warming up...")
+                    printStatus();
                 },
                 swipeDown: function (event, direction, distance, duration) {
-                    if (status == "neutral") {
-                        cooldown();
-                        play(sadness);
-                    }
-                    else if (status == "excited") {
-                        normalise();
-                        play(neutral);
-                    }
-                    else if (status == "petrified") {
-                        ignate();
-                        play(neutral);
-                    }
-                    else if (status == "lit") {
-                            petrify();
-                            play(neutral);
-                        }
+                    switch(getStatus()){
+                        case "neutral":
+                            cooldown();
+                            break;
+                        case "excited":
+                            neutralise();
+                            break;
+                        case "normal":
+                            ignite();
+                            break;
+                        case "lit":
+                            normalise();
+                            break;
+                    } 
                     console.log("Cooling down...")
+                    printStatus();
                 },
                 swipeLeft: function (event, direction, distance, duration) {
-                    if (status == "neutral") {
-                        petrify();
-                        play(sadness);
-                    }
-                    else if (status == "petrified") {
-                        normalise();
-                        play(neutral);
+                    switch(getStatus()){
+                        case "neutral":
+                            normalise();
+                            break;
+                        case "normal":
+                            neutralise();
+                            break;
                     }
                     console.log("Switching amoeba...")
+                    printStatus();
                 },
                 swipeRight: function (event, direction, distance, duration) {
-                    if (status == "neutral") {
-                        petrify();
-                        play(sadness);
-                    }
-                    else if (status == "petrified") {
-                        normalise();
-                        play(neutral);
+                    switch (getStatus()) {
+                        case "neutral":
+                            normalise();
+                            break;
+                        case "normal":
+                            neutralise();
+                            break;
                     }
                     console.log("Switching amoeba...")
+                    printStatus();
                 },
             });
         </script>
