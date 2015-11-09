@@ -22,6 +22,16 @@ function rand(min, max) {
     return Math.floor(Math.random() * (max-min+1)) + min;
 }
 
+// Stop all executions for a certain amount of time
+function sleep(milliseconds) {
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+        if ((new Date().getTime() - start) > milliseconds) {
+            break;
+        }
+    }
+}
+
 // Set animation
 function setAnimation(element, animation, time) {
     $(element).css({
@@ -103,6 +113,11 @@ function cooldown() {
 }
 
 function neutralise() {
+    $("#amoeba > *").css({
+        "-webkit-transition": "all 10s",
+        "-moz-transition": "all 10s",
+        "-o-transition": "all 10s"
+    });
     $("#amoeba :nth-child(even)").css({ "background": "grey" });
     $("#amoeba :nth-child(odd)").css({ "background": "mediumpurple" });
     $("#amoeba :nth-child(-n+100)").css({ "opacity": "0.2" });
@@ -111,26 +126,29 @@ function neutralise() {
         "border-radius": "20px",
         height: "67%", width: "67%"
     }, 1000);
-    status = "neutral";
     for (i = 1; i <= 100; i++) {
-        switch (i) {
-            case i > 90:
-                setAnimation($("#amoeba :nth-child("+ i +")"), "shrink", rand(30, 40));
-                break;
-            case i > 50:
-                setAnimation($("#amoeba :nth-child(" + i + ")"), "pulserotate", rand(20, 30));
-                break;
-            case 0 > i > 50:
-                setAnimation($("#amoeba :nth-child(" + i + ")"), "expand", rand(10, 20));
-                break;
+        if (i > 90){
+            setAnimation($("#amoeba :nth-child("+ i +")"), "shrink", rand(30, 40));
+        }
+        else if (i > 50){
+            setAnimation($("#amoeba :nth-child(" + i + ")"), "pulserotate", rand(20, 30));
+        }
+        else{
+            setAnimation($("#amoeba :nth-child(" + i + ")"), "expand", rand(10, 20));
         }
     }
+    status = "neutral";
     setAnimation(amoeba, "pulsate", 15);
     play(neutral);
 }
 
 function normalise() {
-    $("#amoeba :nth-child(even)").css({ "background": "DarkGray" }); 
+    $("#amoeba > *").css({
+        "-webkit-transition": "all 10s",
+        "-moz-transition": "all 10s",
+        "-o-transition": "all 10s"
+    });
+    $("#amoeba :nth-child(even)").css({ "background": "DarkGray" });
     $("#amoeba :nth-child(odd)").css({ "background": "DarkKhaki" });
     $("#amoeba > *").css({ "opacity": "0.2" });
     $("#amoeba :nth-child(-n+20)").css({ "opacity": "0" });
@@ -138,83 +156,97 @@ function normalise() {
         "border-radius": "15px",
         height: "67%", width: "67%"
     }, 1000);
-    status = "normal";
     for (i = 1; i <= 100; i++) {
         switch ((i % 10)) {
-            case 0,2,7:
+            case 0, 2, 7:
                 setAnimation($("#amoeba :nth-child(" + i + ")"), "shrink", rand(40, 50));
                 break;
-            case 1,5,8:
+            case 1, 5, 8:
                 setAnimation($("#amoeba :nth-child(" + i + ")"), "expand", rand(40, 50));
                 break;
             default:
                 setAnimation($("#amoeba :nth-child(" + i + ")"), "pulserotate", rand(40, 50));
                 break;
         }
+        status = "normal";
+        setAnimation(amoeba, "pulsate", 30);
+        play(neutral);
     }
-    setAnimation(amoeba, "pulsate", 30);
-    play(neutral);
 }
-
-function ignite() {
-    $("#amoeba :nth-child(even)").css({ "background": "red"});
-    $("#amoeba :nth-child(odd)").css({ "background": "darkred" });
-    $("#amoeba > *").css({ "opacity": "0.2" });
-    $("#amoeba :nth-child(-n+80)").css({ "opacity": "0" });
-    $("#amoeba > *").animate({
-        "border-radius": "50px",
-        height: "62%", width: "62%"
-    }, 1000);
-    status = "ignited";
-    setAnimation(amoeba, "largePulse", 15)
-    play(sadness);
-}
-
-function lightUp() {
-    $("#amoeba  :nth-child(even)").css({ "background": "LightGreen" });
-    $("#amoeba :nth-child(odd)").css({ "background": "MediumSeaGreen" });
-    $("#amoeba > *").css({ "opacity": "0.2" });
-    $("#amoeba :nth-child(-n+60)").css({ "opacity": "0" });
-    $("#amoeba > *").animate({
-        "border-radius": "50px",
-        height: "77%", width: "77%"
-    }, 1000);
-    status = "lit";
-    for (i = 1; i <= 100; i++) {
-                setAnimation($("#amoeba :nth-child(" + i + ")"), "pulserotate", rand(20, 30));
+    function ignite() {
+        $("#amoeba :nth-child(even)").css({ "background": "red" });
+        $("#amoeba :nth-child(odd)").css({ "background": "darkred" });
+        $("#amoeba > *").css({ "opacity": "0.2" });
+        $("#amoeba :nth-child(-n+80)").css({ "opacity": "0" });
+        $("#amoeba > *").animate({
+            "border-radius": "50px",
+            height: "62%", width: "62%"
+        }, 1000);
+        status = "ignited";
+        setAnimation(amoeba, "largePulse", 15)
+        play(sadness);
     }
-    setAnimation($("#amoeba > *"), "pulserotate", rand(15, 25));
-    setAnimation(amoeba, "pulsate", 15);
-    play(happiness);
-}
 
-function petrify() {
-    $("#amoeba :nth-child(even)").css({ "background": "DarkGray" });
-    $("#amoeba :nth-child(odd)").css({ "background": "DarkKhaki" });
-    $("#amoeba :nth-child(-n+100)").css({ "opacity": "0.2" });
-    $("#amoeba :nth-child(-n+50)").css({ "opacity": "0" });
-    $("#amoeba > *").animate({
-        "border-radius": "15px",
-        height: "70%", width: "70%"
-    }, 1000);
-    $("#amoeba :nth-child(-n+50)").animate({
-        "border-radius": "15px",
-        height: "67%", width: "67%",
-        background: "black", opacity: "1"
-    }, 1000);
+    function lightUp() {
+        $("#amoeba  :nth-child(even)").css({ "background": "LightGreen" });
+        $("#amoeba :nth-child(odd)").css({ "background": "MediumSeaGreen" });
+        $("#amoeba > *").css({ "opacity": "0.2" });
+        $("#amoeba :nth-child(-n+60)").css({ "opacity": "0" });
+        $("#amoeba > *").animate({
+            "border-radius": "50px",
+            height: "77%", width: "77%"
+        }, 1000);
+        status = "lit";
         for (i = 1; i <= 100; i++) {
-        switch ((i % 10)) {
-            case 0,2,7:
-                setAnimation($("#amoeba :nth-child(" + i + ")"), "shrink", rand(40, 50));
-                break;
-            case 1,5,8:
-                setAnimation($("#amoeba :nth-child(" + i + ")"), "expand", rand(40, 50));
-                break;
-            default:
-                setAnimation($("#amoeba :nth-child(" + i + ")"), "pulserotate", rand(40, 50));
-                break;
+            setAnimation($("#amoeba :nth-child(" + i + ")"), "pulserotate", rand(20, 30));
         }
-    status = "petrified";
-    setAnimation(amoeba, "pulsate", 20);
-    play(neutral);
-}
+        setAnimation($("#amoeba > *"), "pulserotate", rand(15, 25));
+        setAnimation(amoeba, "pulsate", 15);
+        play(happiness);
+    }
+
+    function petrify() {
+        $("#amoeba > *").css({
+            "-webkit-transition": "all 3s",
+            "-moz-transition": "all 3s",
+            "-o-transition": "all 3s"
+        });
+        $("#amoeba :nth-child(even)").css({ "background": "DarkSlateGray ", "opacity": "0.2" });
+        $("#amoeba :nth-child(odd)").css({ "background": "SteelBlue ", "opacity": "0.2" });
+        $("#amoeba :nth-child(-n-25)").css({ "background": "black", "opacity": "0.1" });
+        $("#amoeba > *").animate({
+            "border-radius": "15px",
+            height: "55%", width: "55%"
+        }, 1000);
+        setAnimation($("#amoeba > *"), null, 0);
+        status = "petrified";
+
+        setAnimation(amoeba, "pulsate", 20);
+        play(neutral);
+    }
+
+
+    function alert() {
+        $("#amoeba :nth-child(-n+100)").css({
+            "background": "black", "opacity": "0.9", "-webkit-transition": "all 3s",
+            "-moz-transition": "all 3s",
+            "-o-transition": "all 3s"
+        });
+        $("#amoeba :nth-child(-n+50)").css({ "background": "red", "opacity": "0.2" });
+        $("#amoeba :nth-child(-n+25)").css({ "background": "brown", "opacity": "0.1" });
+        $("#amoeba > *").animate({
+            "border-radius": "1px",
+            height: "73%", width: "76%"
+        }, 1000);
+        $("#amoeba :nth-child(-n+50)").animate({
+            "border-radius": "1px",
+            height: "80%", width: "80%"
+        }, 1000);
+        for (i = 1; i <= 50; i++) {
+            x = rand(5, 15);
+            setAnimation($("#amoeba :nth-child(" + i + ")"), "pulserotate", x);
+            setAnimation($("#amoeba :nth-child(" + (50 + i) + ")"), "pulserotate", x);
+        }
+        setAnimation(amoeba, "pulsate", 3);
+        status = "alert"
+    }

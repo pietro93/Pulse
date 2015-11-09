@@ -23,7 +23,7 @@ container {
 amoeba {
     position:absolute;
     display: inline;
-    margin-top: 30%; margin-left:30%;
+    margin-top: 33%; margin-left:33%;
     width: 60%;
     height: 60%;
     transform: translate3d(0,0,0);          /*  force hardware accelleration on mobile devices */    
@@ -42,7 +42,6 @@ shape {
   }
   
 shape:nth-child(n){
-  -webkit-transition: all 10s;
   -webkit-transition: all 10s;
   -moz-transition: all 10s;
   -o-transition: all 10s;

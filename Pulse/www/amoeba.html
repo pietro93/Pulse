@@ -68,16 +68,21 @@
                     printStatus();
                 },
                 swipeLeft: function (event, direction, distance, duration) {
-                    switch(getStatus()){
-                        case "neutral":
-                            normalise();
-                            break;
-                        case "normal":
-                            neutralise();
-                            break;
-                    }
-                    console.log("Switching amoeba...")
-                    printStatus();
+                        switch (getStatus()) {
+                            case "neutral":
+                                petrify();
+                                break;
+                            case "normal":
+                                neutralise();
+                                break;
+                            case "petrified":
+                                if (duration < 500){
+                                    normalise();
+                                }
+                                break;
+                        }
+                        console.log("Switching amoeba...")
+                        printStatus();
                 },
                 swipeRight: function (event, direction, distance, duration) {
                     switch (getStatus()) {
@@ -85,12 +90,27 @@
                             normalise();
                             break;
                         case "normal":
-                            neutralise();
+                            petrify();
+                            break;
+                        case "petrified":
+                            if (duration < 500){
+                                neutralise();
+                            }
                             break;
                     }
                     console.log("Switching amoeba...")
                     printStatus();
                 },
+                swipeStatus: function (event, phase, direction, distance, duration, fingers) {
+                    if (status == "petrified" && (duration > 500) ) {
+                        alert();
+                        printStatus();
+                    }
+                    if (status == "alert" && (phase == ("end" || "cancel") || event.type == "touchend")) {
+                        petrify();
+                        printStatus();
+                    }                    
+            },                
             });
         </script>
 
