@@ -100,8 +100,8 @@ function excite() {
 }
 
 function cooldown() {
-    $("#amoeba :nth-child(even)").css({ "background": "blue" });
-    $("#amoeba :nth-child(odd)").css({ "background": "cyan"});
+    $("#amoeba :nth-child(even)").css({ "background": "blue", "opacity": "0.3" });
+    $("#amoeba :nth-child(odd)").css({ "background": "cyan", "opacity": "0.3"});
     $("#amoeba :nth-child(-n+90)").css({ "opacity": "0"});
     $("#amoeba > *").animate({
         "border-radius": "50px",
@@ -118,13 +118,13 @@ function neutralise() {
         "-moz-transition": "all 10s",
         "-o-transition": "all 10s"
     });
-    $("#amoeba :nth-child(even)").css({ "background": "grey" });
-    $("#amoeba :nth-child(odd)").css({ "background": "mediumpurple" });
-    $("#amoeba :nth-child(-n+100)").css({ "opacity": "0.2" });
+    $("#amoeba :nth-child(even)").css({ "background": "darkslategrey",  "opacity": "0.2"});
+    $("#amoeba :nth-child(odd)").css({ "background": "#8C658C", "opacity" : "0.4"}); //purple gray
     $("#amoeba :nth-child(-n+50)").css({ "opacity": "0" });
     $("#amoeba > *").animate({
         "border-radius": "20px",
-        height: "67%", width: "67%"
+        height: "67%", width: "67%",
+        "left": "0%", "top": "0%"
     }, 1000);
     for (i = 1; i <= 100; i++) {
         if (i > 90){
@@ -150,11 +150,12 @@ function normalise() {
     });
     $("#amoeba :nth-child(even)").css({ "background": "DarkGray" });
     $("#amoeba :nth-child(odd)").css({ "background": "DarkKhaki" });
-    $("#amoeba > *").css({ "opacity": "0.2" });
+    $("#amoeba > *").css({ "opacity": "0.1" });
     $("#amoeba :nth-child(-n+20)").css({ "opacity": "0" });
     $("#amoeba > *").animate({
         "border-radius": "15px",
-        height: "67%", width: "67%"
+        height: "65%", width: "65%",
+        "left": "0%", "top": "0%"
     }, 1000);
     for (i = 1; i <= 100; i++) {
         switch ((i % 10)) {
@@ -176,32 +177,34 @@ function normalise() {
     function ignite() {
         $("#amoeba :nth-child(even)").css({ "background": "red" });
         $("#amoeba :nth-child(odd)").css({ "background": "darkred" });
-        $("#amoeba > *").css({ "opacity": "0.2" });
+        $("#amoeba > *").css({ "opacity": "0.1" });
         $("#amoeba :nth-child(-n+80)").css({ "opacity": "0" });
         $("#amoeba > *").animate({
             "border-radius": "50px",
-            height: "62%", width: "62%"
+            height: "62%", width: "62%",
+            "left": "+3%", "top": "+3%"
         }, 1000);
         status = "ignited";
-        setAnimation(amoeba, "largePulse", 15)
+        setAnimation(amoeba, "largePulse", 10)
         play(sadness);
     }
 
     function lightUp() {
         $("#amoeba  :nth-child(even)").css({ "background": "LightGreen" });
         $("#amoeba :nth-child(odd)").css({ "background": "MediumSeaGreen" });
-        $("#amoeba > *").css({ "opacity": "0.2" });
+        $("#amoeba > *").css({ "opacity": "0.1" });
         $("#amoeba :nth-child(-n+60)").css({ "opacity": "0" });
         $("#amoeba > *").animate({
             "border-radius": "50px",
-            height: "77%", width: "77%"
+            height: "77%", width: "77%",
+            "left": "-7%", "top": "-7%"
         }, 1000);
         status = "lit";
         for (i = 1; i <= 100; i++) {
             setAnimation($("#amoeba :nth-child(" + i + ")"), "pulserotate", rand(20, 30));
         }
         setAnimation($("#amoeba > *"), "pulserotate", rand(15, 25));
-        setAnimation(amoeba, "pulsate", 15);
+        setAnimation(amoeba, "pulsate", 10);
         play(happiness);
     }
 
@@ -211,12 +214,13 @@ function normalise() {
             "-moz-transition": "all 3s",
             "-o-transition": "all 3s"
         });
-        $("#amoeba :nth-child(even)").css({ "background": "DarkSlateGray ", "opacity": "0.2" });
-        $("#amoeba :nth-child(odd)").css({ "background": "SteelBlue ", "opacity": "0.2" });
-        $("#amoeba :nth-child(-n-25)").css({ "background": "black", "opacity": "0.1" });
+        $("#amoeba :nth-child(even)").css({ "background": "#733C3C", "opacity": "0.2" }); //reddish gray
+        $("#amoeba :nth-child(odd)").css({ "background": "darkslategrey", "opacity": "0.2" });
         $("#amoeba > *").animate({
             "border-radius": "15px",
-            height: "55%", width: "55%"
+            height: "55%", width: "55%",
+            "left": $("amoeba").position().left, "top": $("amoeba").position().top,
+            "left": "+7%", "top": "+7%"
         }, 1000);
         setAnimation($("#amoeba > *"), null, 0);
         status = "petrified";
@@ -228,7 +232,7 @@ function normalise() {
 
     function alert() {
         $("#amoeba :nth-child(-n+100)").css({
-            "background": "black", "opacity": "0.9", "-webkit-transition": "all 3s",
+            "background": "black", "opacity": "0.8", "-webkit-transition": "all 3s",
             "-moz-transition": "all 3s",
             "-o-transition": "all 3s"
         });
@@ -236,11 +240,13 @@ function normalise() {
         $("#amoeba :nth-child(-n+25)").css({ "background": "brown", "opacity": "0.1" });
         $("#amoeba > *").animate({
             "border-radius": "1px",
-            height: "73%", width: "76%"
+            height: "80%", width: "80%",
+            "left": "-3%", "top": "-3%"
         }, 1000);
         $("#amoeba :nth-child(-n+50)").animate({
             "border-radius": "1px",
-            height: "80%", width: "80%"
+            height: "85%", width: "85%",
+            "left": "-5%", "top": "-5%"
         }, 1000);
         for (i = 1; i <= 50; i++) {
             x = rand(5, 15);

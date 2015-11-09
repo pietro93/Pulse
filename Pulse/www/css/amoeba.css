@@ -23,7 +23,7 @@ container {
 amoeba {
     position:absolute;
     display: inline;
-    margin-top: 33%; margin-left:33%;
+    margin-top: 30%; margin-left:30%;
     width: 60%;
     height: 60%;
     transform: translate3d(0,0,0);          /*  force hardware accelleration on mobile devices */    
