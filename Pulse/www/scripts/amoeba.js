@@ -93,9 +93,11 @@ function excite() {
     $("#amoeba > *").animate({
         "opacity":"0.2",
         "border-radius": "1px",
-        height: "70%", width: "70%"}, 1000);
+        height: "70%", width: "70%",
+        "left": "5%", "top": "5%"
+    }, 1000);
     status = "excited";
-    setAnimation(amoeba, "pulsate", 3);
+    setAnimation(amoeba, "expandPulse", 3);
     play(happiness);
 }
 
@@ -118,8 +120,8 @@ function neutralise() {
         "-moz-transition": "all 10s",
         "-o-transition": "all 10s"
     });
-    $("#amoeba :nth-child(even)").css({ "background": "darkslategrey",  "opacity": "0.2"});
-    $("#amoeba :nth-child(odd)").css({ "background": "#8C658C", "opacity" : "0.4"}); //purple gray
+    $("#amoeba :nth-child(even)").css({ "background": "darkslategrey",  "opacity": "0.1"});
+    $("#amoeba :nth-child(odd)").css({ "background": "#8C658C", "opacity" : "0.1"}); //purple gray
     $("#amoeba :nth-child(-n+50)").css({ "opacity": "0" });
     $("#amoeba > *").animate({
         "border-radius": "20px",
@@ -154,7 +156,7 @@ function normalise() {
     $("#amoeba :nth-child(-n+20)").css({ "opacity": "0" });
     $("#amoeba > *").animate({
         "border-radius": "15px",
-        height: "65%", width: "65%",
+        height: "67%", width: "67%",
         "left": "0%", "top": "0%"
     }, 1000);
     for (i = 1; i <= 100; i++) {
@@ -174,7 +176,7 @@ function normalise() {
         play(neutral);
     }
 }
-    function ignite() {
+    function alert() {
         $("#amoeba :nth-child(even)").css({ "background": "red" });
         $("#amoeba :nth-child(odd)").css({ "background": "darkred" });
         $("#amoeba > *").css({ "opacity": "0.1" });
@@ -184,8 +186,8 @@ function normalise() {
             height: "62%", width: "62%",
             "left": "+3%", "top": "+3%"
         }, 1000);
-        status = "ignited";
-        setAnimation(amoeba, "largePulse", 10)
+        status = "alert";
+        setAnimation(amoeba, "shrinkPulse", 10)
         play(sadness);
     }
 
@@ -216,11 +218,11 @@ function normalise() {
         });
         $("#amoeba :nth-child(even)").css({ "background": "#733C3C", "opacity": "0.2" }); //reddish gray
         $("#amoeba :nth-child(odd)").css({ "background": "darkslategrey", "opacity": "0.2" });
+        $("#amoeba :nth-child(-n+90)").css({ "opacity": "0" });
         $("#amoeba > *").animate({
             "border-radius": "15px",
             height: "55%", width: "55%",
-            "left": $("amoeba").position().left, "top": $("amoeba").position().top,
-            "left": "+7%", "top": "+7%"
+            "left": "7%", "top": "7%"
         }, 1000);
         setAnimation($("#amoeba > *"), null, 0);
         status = "petrified";
@@ -230,7 +232,7 @@ function normalise() {
     }
 
 
-    function alert() {
+    function responsive() {
         $("#amoeba :nth-child(-n+100)").css({
             "background": "black", "opacity": "0.8", "-webkit-transition": "all 3s",
             "-moz-transition": "all 3s",
@@ -254,5 +256,5 @@ function normalise() {
             setAnimation($("#amoeba :nth-child(" + (50 + i) + ")"), "pulserotate", x);
         }
         setAnimation(amoeba, "pulsate", 3);
-        status = "alert"
+        status = "responsive"
     }

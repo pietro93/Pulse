@@ -42,7 +42,7 @@
                         case "normal":
                             lightUp();
                             break;
-                        case "ignited":
+                        case "alert":
                             normalise();
                             break;
                     } 
@@ -58,7 +58,7 @@
                             neutralise();
                             break;
                         case "normal":
-                            ignite();
+                            alert();
                             break;
                         case "lit":
                             normalise();
@@ -103,10 +103,10 @@
                 },
                 swipeStatus: function (event, phase, direction, distance, duration, fingers) {
                     if (status == "petrified" && (duration > 500) ) {
-                        alert();
+                        responsive();
                         printStatus();
                     }
-                    if (status == "alert" && (phase == ("end" || "cancel") || event.type == "touchend")) {
+                    if (status == "responsive" && (phase == ("end" || "cancel") || event.type == "touchend")) {
                         petrify();
                         printStatus();
                     }                    
