@@ -102,12 +102,16 @@
                     printStatus();
                 },
                 swipeStatus: function (event, phase, direction, distance, duration, fingers) {
-                    if (status == "petrified" && (duration > 500) ) {
+                    if (status == "neutral" && (duration > 500) ) {
                         responsive();
                         printStatus();
                     }
+                    else if (duration > 500) {
+                        setColour(!colour + 0);
+                        triggerOnTouchEnd: true;
+                    }
                     if (status == "responsive" && (phase == ("end" || "cancel") || event.type == "touchend")) {
-                        petrify();
+                        neutralise();
                         printStatus();
                     }                    
             },                

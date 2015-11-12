@@ -23,9 +23,9 @@ container {
 amoeba {
     position:absolute;
     display: inline;
-    margin-top: 30%; margin-left:30%;
-    width: 60%;
-    height: 60%;
+    margin-top: 33%; margin-left:33%;
+    width: 65%;
+    height: 65%;
     transform: translate3d(0,0,0);          /*  force hardware accelleration on mobile devices */    
     -webkit-transform: translate3d(0,0,0);
     -webkit-transition: all 10s;
@@ -95,12 +95,12 @@ shape:nth-child(n){
     }
 }
 
-@-webkit-keyframes shrinkPulse {
+@-webkit-keyframes largePulse {
     25% {
-        -webkit-transform: scale(0.7);
-        -moz-transform: scale(0.7);
-        -o-transform: scale(0.7);
-        -ms-transform: scale(0.7);
+        -webkit-transform: scale(1.4);
+        -moz-transform: scale(1.4);
+        -o-transform: scale(1.4);
+        -ms-transform: scale(1.4);
     }
     50% {
         -webkit-transform: scale(1);
@@ -109,19 +109,19 @@ shape:nth-child(n){
         -ms-transform: scale(1);
     }
     100% {
-        -webkit-transform: scale(1.2);
-        -moz-transform: scale(1.2);
-        -o-transform: scale(1.2);
-        -ms-transform: scale(1.2);
+        -webkit-transform: scale(0.9);
+        -moz-transform: scale(0.9);
+        -o-transform: scale(0.9);
+        -ms-transform: scale(0.9);
     }
 }
 
-@-webkit-keyframes expandPulse {
+@-webkit-keyframes smallPulse {
     25% {
-        -webkit-transform: scale(1.4);
-        -moz-transform: scale(1.4);
-        -o-transform: scale(1.4);
-        -ms-transform: scale(1.4);
+        -webkit-transform: scale(1.1);
+        -moz-transform: scale(1.1);
+        -o-transform: scale(1.1);
+        -ms-transform: scale(1.1);
     }
     50% {
         -webkit-transform: scale(1);
