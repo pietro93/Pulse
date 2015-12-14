@@ -33,33 +33,48 @@ function sleep(milliseconds) {
 }
 
 // Set animation
-function setAnimation(element, animation, time) {
+function setAnimation(element, animation, time, disableAlternate) {
+    alternate = "alternate";
+    if (disableAlternate) { alternate = "" }
     $(element).css({
-        "-webkit-animation": animation + " " + time + "s linear alternate infinite",
-        "-moz-animation": animation + " " + time + "s linear alternate infinite",
-        "-o-animation": animation + " " + time + "s linear alternate infinite;"
+        "animation": animation + " " + time + "s linear "+ alternate +" infinite",
+        "-webkit-animation": animation + " " + time + "s linear " + alternate + " infinite",
+        "-moz-animation": animation + " " + time + "s linear "+ alternate +" infinite",
+        "-o-animation": animation + " " + time + "s linear "+ alternate +" infinite;"
     });
 }
 
-// Set colour
+// Set colour (0/cold/b/blue: blue, 1/warm/r/red: red, 2/g/green: green, -1/*: gray)
 function setColour(colourWarmth) {
+    if (colourWarmth > 1) {
+        if ((colourWarmth & 1)){ colourWarmth = 1} // turn odd input into 1
+        else { colourWarmth = 2 } // turn even input into 2
+    }
     switch (colourWarmth) {
         case "cold":
+        case "b":case"blue":
         case 0:
-            colour = 0;
+            this.colour = 0;
             colour1 = "cyan";
-            colour2 = "lightgreen";
+            colour2 = "skyblue";
             break;
         case "warm":
+        case "r":case"red":
         case 1:
-            colour = 1;
+            this.colour = 1;
             colour1 = "red";
             colour2 = "orangered";
             break;
+        case "g":case"green":
+        case 2:
+            this.colour = 2;
+            colour1 = "green";
+            colour2 = "lightgreen";
+            break;
         default:
-            colour = -1;
+            this.colour = -1;
             colour1 = "darkslategrey";
-            colour2 = "#8C658C"; //grey-purple
+            colour2 = "rgb(130, 130, 130)"; //grey-purple
             break;
     }
     $("#amoeba :nth-child(even)").css({ "background": colour1 });
@@ -67,62 +82,36 @@ function setColour(colourWarmth) {
 }
 
 // Set wave period and amplitude
-function setContour(period, amplitude, edge){
+function setContour(period, edge){
     switch (period){
         case "long": case 0:
+            this.period = 0
             $("#amoeba :nth-child(-n+90)").css({ "opacity": "0" });
             shapes = 10;
             break;
         case "short": case 1:
+            this.period = 1
             $("#amoeba > *").css({ "opacity": "0.2" });
             shapes = 100;
             break;
         default:
+            this.period = -1
             $("#amoeba > *").css({ "opacity": "0.2" });
             $("#amoeba :nth-child(-n+50)").css({ "opacity": "0" });
             shapes = 50;
             break;
     }
-    switch (amplitude){
-        case "regular": case 0:
-            for (i = 1; i <= shapes; i++) {
-                setAnimation($("#amoeba :nth-child(-n +" + (100-i) + ")"), "shrink", rand(30, 40));
-            };
-            break;
-        case "irregular": case 1:
-            for (i = 1; i <= shapes; i++) {
-                switch (i % 10) {
-                    case 0: case 4: case 9:
-                        setAnimation($("#amoeba :nth-child(-n" + (100 - i) + ")"), "shrink", rand(30, 40));
-                        break;
-                    case 2: case 5: case 8:
-                        setAnimation($("#amoeba :nth-child(-n +" + (100 - i) + ")"), "expand", rand(10, 20));
-                        break;
-                    default:
-                        setAnimation($("#amoeba :nth-child(-n +" + (100 - i) + ")"), "pulserotate", rand(20, 30));
-                        break;
-                }
-            };
-            break;
-        default:
-            for (i = 1; i <= shapes; i++) {
-                if (i > (shapes / 2)) {
-                    setAnimation($("#amoeba :nth-child(-n +" + (100-i) + ")"), "shrink", rand(30, 40));
-                }
-                else {
-                    setAnimation($("#amoeba :nth-child(-n +" + (100-i) + ")"), "pulserotate", rand(20, 30));
-                }
-            };
-            break;
-    }
     switch (edge) {
         case "smooth": case 0:
+            this.edge = 0
             br = "50px";
             break;
         case "jagged": case 1:
+            this.edge = 1
             br = "1px";
             break;
         default:
+            this.edge = -1
             br = "25px";
             break;
     }
@@ -132,34 +121,42 @@ function setContour(period, amplitude, edge){
 }
 
 function setPulse(size, speed) {
+    ds = false;
     switch (size) {
         case "small": case 0:
+            this.size = 0
             animation = "smallPulse";
             break;
         case "large": case 1:
+            this.size = 1
             animation = "largePulse";
             break;
         default:
+            this.size = -1
             animation = "pulsate";
             break;
     }
-    switch (speed){
+    switch (speed) {
         case "slow": case 0:
+            this.speed = 0
             time = 25;
             break;
         case "fast": case 1:
-            time = 3;
+            ds = true;
+            this.speed = 1
+            time = 1;
             break;
         default:
+            this.speed = -1
             time = 15;
             break;
     }
-    setAnimation(amoeba, animation, time);
+    setAnimation(amoeba, animation, time, ds);
 }
 
-function setAmoeba(colour, period, amplitude, edge, pulseSize, pulseSpeed) {
+function setAmoeba(colour, period, edge, pulseSize, pulseSpeed) {
     setColour(colour);
-    setContour(period, amplitude, edge);
+    setContour(period, edge);
     setPulse(pulseSize, pulseSpeed);
 }
 
@@ -210,22 +207,18 @@ function createAmoeba() {
 }
 
 function excite() {
-    setAmoeba(1, 1, 1, 1, 1, 1);
+    setAmoeba(colour, 1, 1, 1, 1);
     status = "excited";
 }
 
 function cooldown() {
-    setAmoeba(0, 0, 0, 0, 0, 0);
+    setAmoeba(colour, 0, 0, 0, 0);
     status = "calm";
 }
 
 function neutralise() {
-    $("#amoeba > *").css({
-        "-webkit-transition": "all 10s",
-        "-moz-transition": "all 10s",
-        "-o-transition": "all 10s"
-    });
-    setAmoeba(-1, -1, -1, -1, -1, -1);
+    setAmoeba(-1, -1, -1, -1, -1);
+    console.log(colour)
     status = "neutral";
 }
 
@@ -243,64 +236,3 @@ function normalise() {
 }
 
 
-function alert() {
-    setColour("warm");
-    setShape("small", "smooth")
-    status = "alert";
-    setAnimation(amoeba, "shrinkPulse", 10);
-    }
-
-function lightUp() {
-    setColour
-        setAnimation(amoeba, "pulsate", 10);
-        play(happiness);
-    }
-
-    function petrify() {
-        $("#amoeba > *").css({
-            "-webkit-transition": "all 1s",
-            "-moz-transition": "all 1s",
-            "-o-transition": "all 1s"
-        });
-        $("#amoeba :nth-child(even)").css({ "background": "#733C3C", "opacity": "0.2" }); //reddish gray
-        $("#amoeba :nth-child(odd)").css({ "background": "darkslategrey", "opacity": "0.2" });
-        $("#amoeba :nth-child(-n+90)").css({ "opacity": "0" });
-        $("#amoeba > *").animate({
-            "border-radius": "15px",
-            height: "55%", width: "55%",
-            "left": "7%", "top": "7%"
-        }, 1000);
-        setAnimation($("#amoeba > *"), null, 0);
-        status = "petrified";
-
-        setAnimation(amoeba, "pulsate", 20);
-        play(neutral);
-    }
-
-
-function responsive() {
-        $("#amoeba :nth-child(-n+100)").css({
-            "background": "black", "opacity": "0.8", "-webkit-transition": "all 1s",
-            "-moz-transition": "all 1s",
-            "-o-transition": "all 1s"
-        });
-        $("#amoeba :nth-child(-n+50)").css({ "background": "red", "opacity": "0.2" });
-        $("#amoeba :nth-child(-n+25)").css({ "background": "brown", "opacity": "0.1" });
-        $("#amoeba > *").animate({
-            "border-radius": "1px",
-            height: "75%", width: "75%",
-            "left": "-5%", "top": "-5%"
-        }, 1000);
-        $("#amoeba :nth-child(-n+50)").animate({
-            "border-radius": "1px",
-            height: "80%", width: "80%",
-            "left": "-5%", "top": "-5%"
-        }, 1000);
-        for (i = 1; i <= 50; i++) {
-            x = rand(5, 15);
-            setAnimation($("#amoeba :nth-child(" + i + ")"), "pulserotate", x);
-            setAnimation($("#amoeba :nth-child(" + (50 + i) + ")"), "pulserotate", x);
-        }
-        setAnimation(amoeba, "pulsate", 3);
-        status = "responsive"
-    }

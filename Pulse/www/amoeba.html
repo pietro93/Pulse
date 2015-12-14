@@ -39,12 +39,6 @@
                         case "calm":
                             neutralise();
                             break;
-                        case "normal":
-                            lightUp();
-                            break;
-                        case "alert":
-                            normalise();
-                            break;
                     } 
                     console.log("Warming up...")
                     printStatus();
@@ -57,64 +51,22 @@
                         case "excited":
                             neutralise();
                             break;
-                        case "normal":
-                            alert();
-                            break;
-                        case "lit":
-                            normalise();
-                            break;
                     } 
                     console.log("Cooling down...")
                     printStatus();
                 },
                 swipeLeft: function (event, direction, distance, duration) {
-                        switch (getStatus()) {
-                            case "neutral":
-                                petrify();
-                                break;
-                            case "normal":
-                                neutralise();
-                                break;
-                            case "petrified":
-                                if (duration < 500){
-                                    normalise();
-                                }
-                                break;
-                        }
-                        console.log("Switching amoeba...")
-                        printStatus();
+                        colour--;
+                        if (colour < -1) { colour = 2 };
+                        setColour(colour);
+                        console.log("Changing colour...")
                 },
                 swipeRight: function (event, direction, distance, duration) {
-                    switch (getStatus()) {
-                        case "neutral":
-                            normalise();
-                            break;
-                        case "normal":
-                            petrify();
-                            break;
-                        case "petrified":
-                            if (duration < 500){
-                                neutralise();
-                            }
-                            break;
-                    }
-                    console.log("Switching amoeba...")
-                    printStatus();
-                },
-                swipeStatus: function (event, phase, direction, distance, duration, fingers) {
-                    if (status == "neutral" && (duration > 500) ) {
-                        responsive();
-                        printStatus();
-                    }
-                    else if (duration > 500) {
-                        setColour(!colour + 0);
-                        triggerOnTouchEnd: true;
-                    }
-                    if (status == "responsive" && (phase == ("end" || "cancel") || event.type == "touchend")) {
-                        neutralise();
-                        printStatus();
-                    }                    
-            },                
+                    colour++;
+                    if (colour > 2) { colour = -1 };
+                    setColour(colour);
+                    console.log("Changing colour...")
+                },               
             });
         </script>
 
