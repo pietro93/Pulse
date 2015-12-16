@@ -1,58 +1,24 @@
-﻿var happiness = new Audio('sounds/happiness.wav');
-var sadness = new Audio('sounds/sadness.wav');
-var neutral = new Audio('sounds/neutral.wav');
+﻿
+var happiness = 'sounds/happiness.wav'
+var sadness = 'sounds/sadness.wav'
+var neutral = 'sounds/neutral.wav'
 
-var current = new Audio();
-current.loop = true;
+var current, playing;
 
-function play(file) {
+function play(sound) {
     stop()
-    current.src = file.src;
-    current.volume = 0.0;
-    current.play();
+    $("body").append('<div id="player" style="position:absolute; bottom: 100px"></div>')
+    $("#player").append('<audio id="audio" src="'+sound+'" autoplay loop/>')
+    console.log("Playing: " + sound)
+    current = sound;
+    playing = true;
 }
 
 function stop() {
-    current.pause()
+    $("#player > *").remove()
+    $("#player").remove()
+    playing = false;
 }
 
-//var context;
-//if (typeof AudioContext !== "undefined") {
-//    context = new AudioContext();
-//} else if (typeof webkitAudioContext !== "undefined") {
-//    context = new webkitAudioContext();
-//} else {
-//    throw new Error('AudioContext is not supported');
-//}
+play(neutral)
 
-//var request = new XMLHttpRequest();
-//request.open("GET", "http://localhost:8080/www/sounds/happiness.wav", true);
-//request.responseType = "arraybuffer";
-
-//var audioData;
-//// Our asynchronous callback
-//request.onload = function () {
-//    audioData = request.response;
-//    createSoundSource(audioData);
-//};
-//request.send();
-
-//// create a sound source
-//soundSource = context.createBufferSource();
-
-//// The Audio Context handles creating source
-//// buffers from raw binary data
-//context.decodeAudioData(audioData, function (soundBuffer) {
-//    // Add the buffered data to our object
-//    soundSource.buffer = soundBuffer;
-//});
-
-//soundSource.connect(context.destination);
-
-//// Create a volume (gain) node
-//volumeNode = context.createGain();
-
-////Set the volume
-//volumeNode.gain.value = 0.1;
-
-//soundSource.connect(volumeNode);

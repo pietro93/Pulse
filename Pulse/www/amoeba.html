@@ -13,31 +13,36 @@
     <!-- Custom CSS -->
     <link id="stylesheet" href="css/amoeba.css" rel="stylesheet" />
         
+    <script type="text/javascript" src="scripts/audio.min.js"></script>
     <!-- Custom Scripts -->
-    <script type="text/javascript" src="scripts/audio.js"></script>
+    
     <script type="text/javascript" src="scripts/swipe.js"></script>
 
 </head>
-<body>
+<body>  
 
         <container id="container">
             <amoeba id="amoeba"></amoeba>
         </container>
 
         <script type="text/javascript" src="scripts/amoeba.js"></script>
-        
+        <script type="text/javascript" src="scripts/audio.js"></script>
+    
         <script type="text/javascript">
             square(container)
             createAmoeba()
+            
             //Set swiping properties
             $("#container").swipe({
                 swipeUp: function (event, direction, distance, duration) {
                     switch(getStatus()){
                         case "neutral":
                             excite();
+                            play(happiness)
                             break;
                         case "calm":
                             neutralise();
+                            play(neutral)
                             break;
                     } 
                     console.log("Warming up...")
@@ -47,9 +52,11 @@
                     switch(getStatus()){
                         case "neutral":
                             cooldown();
+                            play(sadness)
                             break;
                         case "excited":
                             neutralise();
+                            play(neutral)
                             break;
                     } 
                     console.log("Cooling down...")
@@ -66,9 +73,14 @@
                     if (colour > 2) { colour = -1 };
                     setColour(colour);
                     console.log("Changing colour...")
-                },               
+                },
+                tap: function (event, target) {
+                    if (playing) { stop(); console.log("Sound stopped.") }
+                    else play(current)
+                },
             });
-        </script>
+
+        </script>    
 
 </body>
 </html>
