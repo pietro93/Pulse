@@ -5,15 +5,11 @@
     
     <!-- JQuery -->
     <script src="scripts/jquery-1.9.1.min.js"></script>
-    
-    <!-- Bootstrap -->
-    <link id="stylesheet" href="css/bootstrap.min.css" rel="stylesheet" />
-    <script src="scripts/bootstrap.min.js"></script>
 
     <!-- Custom CSS -->
     <link id="stylesheet" href="css/amoeba.css" rel="stylesheet" />
         
-    <script type="text/javascript" src="scripts/audio.min.js"></script>
+    
     <!-- Custom Scripts -->
     
     <script type="text/javascript" src="scripts/swipe.js"></script>
@@ -38,25 +34,30 @@
                     switch(getStatus()){
                         case "neutral":
                             excite();
-                            play(happiness)
+                            stop()
+                            setSound(happiness)
                             break;
                         case "calm":
                             neutralise();
-                            play(neutral)
+                            stop()
+                            setSound(neutral)
                             break;
                     } 
                     console.log("Warming up...")
                     printStatus();
                 },
                 swipeDown: function (event, direction, distance, duration) {
+                    stop()
                     switch(getStatus()){
                         case "neutral":
                             cooldown();
-                            play(sadness)
+                            stop()
+                            setSound(sadness)
                             break;
                         case "excited":
                             neutralise();
-                            play(neutral)
+                            stop()
+                            setSound(neutral)
                             break;
                     } 
                     console.log("Cooling down...")
@@ -75,8 +76,8 @@
                     console.log("Changing colour...")
                 },
                 tap: function (event, target) {
-                    if (playing) { stop(); console.log("Sound stopped.") }
-                    else play(current)
+                    if (playing) { stop(); setTimeout(function () {console.log("Sound stopped.")},2500) }
+                    else { setSound(sound); console.log("Sound started.") }
                 },
             });
 

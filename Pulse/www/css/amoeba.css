@@ -37,7 +37,7 @@ shape {
   width: inherit;
   height: inherit;
   opacity: 0.2;
-  border-radius: 20px;
+  border-radius: 25px;
   }
   
 shape:nth-child(n){
@@ -57,10 +57,10 @@ shape:nth-child(n){
 
 @-webkit-keyframes shrink {
     0% {
-        -webkit-transform: rotate(360deg) scale(0.9);
-        -moz-transform: rotate(360deg) scale(0.9);
-        -o-transform: rotate(360deg) scale(0.9);
-        -ms-transform: rotate(360deg) scale(0.9);
+        -webkit-transform: rotate(360deg) scale(1.1);
+        -moz-transform: rotate(360deg) scale(1.1);
+        -o-transform: rotate(360deg) scale(1.1);
+        -ms-transform: rotate(360deg) scale(1.1);
     }
 }
 

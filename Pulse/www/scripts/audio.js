@@ -1,17 +1,26 @@
-﻿
-var happiness = 'sounds/happiness.wav'
-var sadness = 'sounds/sadness.wav'
-var neutral = 'sounds/neutral.wav'
+﻿// Get random number within specified range
+function rand(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
-var current, playing;
+var r = rand(1, 10)
+var happiness = 'happiness'
+var sadness = 'sadness'
+var neutral = 'neutral'
+var fear = 'fear'
 
-function play(sound) {
-    stop()
-    $("body").append('<div id="player" style="position:absolute; bottom: 100px"></div>')
-    $("#player").append('<audio id="audio" src="'+sound+'" autoplay loop/>')
-    console.log("Playing: " + sound)
-    current = sound;
-    playing = true;
+var sound = neutral, playing = false;
+
+function play() {
+    if (playing) {
+        setTimeout( function() {
+        r = rand(1, 10)
+        current = 'sounds/' + sound + '/' + r + '.wav'
+        $("body").append('<div id="player" style="position:absolute; bottom: 100px"></div>')
+        $("#player").append('<audio id="audio" src="' + current + '" autoplay/>')
+        console.log("Playing: " + current)
+        play()}, 2500)
+    }
 }
 
 function stop() {
@@ -20,5 +29,11 @@ function stop() {
     playing = false;
 }
 
-play(neutral)
+function setSound(sound) {
+    this.sound = sound
+    stop()
+    setTimeout(function () { playing = true; play(sound) }, 2500);
+
+}
+
 

@@ -22,16 +22,6 @@ function rand(min, max) {
     return Math.floor(Math.random() * (max-min+1)) + min;
 }
 
-// Stop all executions for a certain amount of time
-function sleep(milliseconds) {
-    var start = new Date().getTime();
-    for (var i = 0; i < 1e7; i++) {
-        if ((new Date().getTime() - start) > milliseconds) {
-            break;
-        }
-    }
-}
-
 // Set animation
 function setAnimation(element, animation, time, disableAlternate) {
     alternate = "alternate";
@@ -74,7 +64,7 @@ function setColour(colourWarmth) {
         default:
             this.colour = -1;
             colour1 = "darkslategrey";
-            colour2 = "rgb(130, 130, 130)"; //grey-purple
+            colour2 = "rgb(130, 130, 130)"; 
             break;
     }
     $("#amoeba :nth-child(even)").css({ "background": colour1 });
@@ -82,25 +72,25 @@ function setColour(colourWarmth) {
 }
 
 // Set wave period and amplitude
-function setContour(period, edge){
-    switch (period){
-        case "long": case 0:
-            this.period = 0
-            $("#amoeba :nth-child(-n+90)").css({ "opacity": "0" });
-            shapes = 10;
-            break;
-        case "short": case 1:
-            this.period = 1
-            $("#amoeba > *").css({ "opacity": "0.2" });
-            shapes = 100;
-            break;
-        default:
-            this.period = -1
-            $("#amoeba > *").css({ "opacity": "0.2" });
-            $("#amoeba :nth-child(-n+50)").css({ "opacity": "0" });
-            shapes = 50;
-            break;
-    }
+function setContour(edge){
+    //switch (period){
+    //    case "long": case 0:
+    //        this.period = 0
+    //        $("#amoeba :nth-child(-n+90)").css({ "opacity": "0" });
+    //        shapes = 10;
+    //        break;
+    //    case "short": case 1:
+    //        this.period = 1
+    //        $("#amoeba > *").css({ "opacity": "0.2" });
+    //        shapes = 100;
+    //        break;
+    //    default:
+    //        this.period = -1
+    //        $("#amoeba > *").css({ "opacity": "0.2" });
+    //        $("#amoeba :nth-child(-n+50)").css({ "opacity": "0" });
+    //        shapes = 50;
+    //        break;
+    //}
     switch (edge) {
         case "smooth": case 0:
             this.edge = 0
@@ -154,11 +144,15 @@ function setPulse(size, speed) {
     setAnimation(amoeba, animation, time, ds);
 }
 
-function setAmoeba(colour, period, edge, pulseSize, pulseSpeed) {
+function setAmoeba(colour, edge, pulseSize, pulseSpeed, sound) {
     setColour(colour);
-    setContour(period, edge);
+    setContour(edge);
     setPulse(pulseSize, pulseSpeed);
+    if (sound == happiness || sound == sadness || sound == fear || sound == neutral) {
+        setSound(sound);
+    }
 }
+
 
 // Add 'shape' that will make up the amoeba.
 function addShape(type) {
@@ -222,17 +216,5 @@ function neutralise() {
     status = "neutral";
 }
 
-function normalise() {
-    $("#amoeba > *").css({
-        "-webkit-transition": "all 10s",
-        "-moz-transition": "all 10s",
-        "-o-transition": "all 10s"
-    });
-    neutralise();
-    $("#amoeba :nth-child(even)").css({ "background": "DarkGray" });
-    $("#amoeba :nth-child(odd)").css({ "background": "DarkKhaki" });
-    status = "normal";
-    setAnimation(amoeba, "pulsate", 30);
-}
 
 
