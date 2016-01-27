@@ -35,12 +35,12 @@
                         case "neutral":
                             excite();
                             stop()
-                            setSound(happiness)
+                            setTimeout(function () {play(happiness)}, 3000)
                             break;
                         case "calm":
                             neutralise();
                             stop()
-                            setSound(neutral)
+                            setTimeout(function () {play(neutral)}, 3000)
                             break;
                     } 
                     console.log("Warming up...")
@@ -52,12 +52,12 @@
                         case "neutral":
                             cooldown();
                             stop()
-                            setSound(sadness)
+                            setTimeout(function () {play(sadness)}, 3000)
                             break;
                         case "excited":
                             neutralise();
                             stop()
-                            setSound(neutral)
+                            setTimeout(function () {play(neutral)}, 3000)
                             break;
                     } 
                     console.log("Cooling down...")
@@ -76,8 +76,8 @@
                     console.log("Changing colour...")
                 },
                 tap: function (event, target) {
-                    if (playing) { stop(); setTimeout(function () {console.log("Sound stopped.")},2500) }
-                    else { setSound(sound); console.log("Sound started.") }
+                    if (playing) { stop(); console.log("Sound stopped.") }
+                    else setTimeout(function () {play(sound)}, 3000)
                 },
             });
 
