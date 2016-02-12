@@ -16,7 +16,7 @@ function play() {
         setTimeout(function () {
             r = rand(1, 10)
             current = 'sounds/' + sound + '/' + r + '.wav'
-            $("body").append('<div id="player" style="position:absolute; bottom: 100px"></div>')
+            $("body").append('<div id="player" class="player" style="position:absolute; bottom: 100px"></div>')
             $("#player").append('<audio id="audio" src="' + current + '" autoplay/>')
             console.log("Playing: " + current)
             setTimeout(function () {play()}, 1500)
@@ -26,7 +26,7 @@ function play() {
 
 function stop() {
     $("#player > *").remove()
-    $("#player").remove()
+    $(".player").remove()
     playing = false;
 }
 
