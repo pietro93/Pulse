@@ -19,8 +19,8 @@ function play() {
             $("body").append('<div id="player" style="position:absolute; bottom: 100px"></div>')
             $("#player").append('<audio id="audio" src="' + current + '" autoplay/>')
             console.log("Playing: " + current)
-            play()
-        }, 2500)
+            setTimeout(function () {play()}, 1500)
+        }, 500)
     }
 }
 
@@ -34,5 +34,4 @@ function setSound(sound) {
     this.sound = sound
     stop()
     setTimeout(function () { playing = true; play(sound) }, 2500);
-
 }

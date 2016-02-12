@@ -197,7 +197,6 @@ function createAmoeba() {
         addShape('calm');
     }
     setAnimation(amoeba, "pulsate", 15);
-    neutralise();
 }
 
 function excite() {
@@ -212,7 +211,6 @@ function cooldown() {
 
 function neutralise() {
     setAmoeba(-1, -1, -1, -1, -1);
-    console.log(colour)
     status = "neutral";
 }
 

@@ -27,6 +27,7 @@
         <script type="text/javascript">
             square(container)
             createAmoeba()
+            neutralise();
             
             //Set swiping properties
             $("#container").swipe({
@@ -35,12 +36,12 @@
                         case "neutral":
                             excite();
                             stop()
-                            setTimeout(function () {play(happiness)}, 3000)
+                            setSound(happiness)
                             break;
                         case "calm":
                             neutralise();
                             stop()
-                            setTimeout(function () {play(neutral)}, 3000)
+                            setSound(neutral)
                             break;
                     } 
                     console.log("Warming up...")
@@ -52,12 +53,12 @@
                         case "neutral":
                             cooldown();
                             stop()
-                            setTimeout(function () {play(sadness)}, 3000)
+                            setSound(sadness)
                             break;
                         case "excited":
                             neutralise();
                             stop()
-                            setTimeout(function () {play(neutral)}, 3000)
+                            setSound(neutral)
                             break;
                     } 
                     console.log("Cooling down...")
@@ -76,8 +77,8 @@
                     console.log("Changing colour...")
                 },
                 tap: function (event, target) {
-                    if (playing) { stop(); console.log("Sound stopped.") }
-                    else setTimeout(function () {play(sound)}, 3000)
+                    if (playing) { stop(); setTimeout(function () {console.log("Audio stopped.")}, 3000) }
+                    else { console.log("Audio started."); setTimeout(function () {setSound(sound)}, 3000) }
                 },
             });
 
