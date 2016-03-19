@@ -1,15 +1,4 @@
 ﻿var amoeba = document.getElementById('amoeba');
-var status = "neutral";
-
-// Get current status
-function getStatus() {
-    return status
-}
-
-// Print current status
-function printStatus() {
-    console.log("Current status: " + getStatus())
-}
 
 // Square container by setting its height equal to screenwidth
 function square(element) {
@@ -22,7 +11,7 @@ function rand(min, max) {
     return Math.floor(Math.random() * (max-min+1)) + min;
 }
 
-// Set animation
+// Set animation (this is called automatically by amoeba builder)
 function setAnimation(element, animation, time, disableAlternate) {
     alternate = "alternate";
     if (disableAlternate) { alternate = "" }
@@ -34,7 +23,8 @@ function setAnimation(element, animation, time, disableAlternate) {
     });
 }
 
-// Set colour (0/cold/b/blue: blue, 1/warm/r/red: red, 2/g/green: green, -1/*: gray)
+// Change colour of currently displayed amoeba
+// Usage: [0/cold/b/blue] -> blue, [1/warm/r/red] -> red, [2/g/green] -> green, [-1/*] -> gray)
 function setColour(colourWarmth) {
     if (colourWarmth > 1) {
         if ((colourWarmth & 1)){ colourWarmth = 1} // turn odd input into 1
@@ -71,8 +61,10 @@ function setColour(colourWarmth) {
     $("#amoeba :nth-child(odd)").css({ "background": colour2 });
 }
 
-// Set wave period and amplitude
-function setContour(edge){
+// Function to set wave period and amplitude of currently displayed amoeba (DEPRECATED)
+// Can be used to set contour edge instead
+// Can also be partially restaurated, in case someone wants to play with wave periods in the future 
+function setContour(edge/*, period*/){
     //switch (period){
     //    case "long": case 0:
     //        this.period = 0
@@ -110,6 +102,7 @@ function setContour(edge){
     });
 }
 
+// Function to change size and/or pulse speed of currently displayed amoeba
 function setPulse(size, speed) {
     ds = false;
     switch (size) {
@@ -144,6 +137,7 @@ function setPulse(size, speed) {
     setAnimation(amoeba, animation, time, ds);
 }
 
+// Function to set up a new amoeba defining all variables at once 
 function setAmoeba(colour, edge, pulseSize, pulseSpeed, sound) {
     setColour(colour);
     setContour(edge);
@@ -152,7 +146,6 @@ function setAmoeba(colour, edge, pulseSize, pulseSpeed, sound) {
         setSound(sound);
     }
 }
-
 
 // Add 'shape' that will make up the amoeba.
 function addShape(type) {
@@ -186,6 +179,7 @@ function addShape(type) {
     amoeba.appendChild(s);
 }
 
+// Generates new amoeba, initiated with values (-1,-1,-1,-1) and no sound
 function createAmoeba() {
     for (var i = 0; i < 50; i++) {
         addShape('excited');
@@ -197,6 +191,19 @@ function createAmoeba() {
         addShape('calm');
     }
     setAnimation(amoeba, "pulsate", 15);
+}
+
+// Deprecated functions to set up old design, they are called by swiping on mobile devices
+var status = "neutral";
+
+// Get current status
+function getStatus() {
+    return status
+}
+
+// Print current status
+function printStatus() {
+    console.log("Current status: " + getStatus())
 }
 
 function excite() {
@@ -214,5 +221,31 @@ function neutralise() {
     status = "neutral";
 }
 
-
-
+// This is one of the old deprecated designs. Never actually used it, but I thought I'd keep it as an easter egg. 
+// A specific combination of inputs will trigger the app to call this. Can you find it?
+function responsive() {
+           $("#amoeba :nth-child(-n+100)").css({
+                   "background": "black", "opacity": "0.8", "-webkit-transition": "all 1s",
+                   "-moz-transition": "all 1s",
+                   "-o-transition": "all 1s"
+               });
+       $("#amoeba :nth-child(-n+50)").css({ "background": "red", "opacity": "0.2" });
+       $("#amoeba :nth-child(-n+25)").css({ "background": "brown", "opacity": "0.1" });
+       $("#amoeba > *").animate({
+               "border-radius": "1px",
+               height: "75%", width: "75%",
+               "left": "-5%", "top": "-5%"
+           }, 1000);
+       $("#amoeba :nth-child(-n+50)").animate({
+               "border-radius": "1px",
+               height: "80%", width: "80%",
+               "left": "-5%", "top": "-5%"
+           }, 1000);
+       for (i = 1; i <= 50; i++) {
+               x = rand(5, 15);
+               setAnimation($("#amoeba :nth-child(" + i + ")"), "pulserotate", x);
+               setAnimation($("#amoeba :nth-child(" + (50 + i) + ")"), "pulserotate", x);
+           }
+       setAnimation(amoeba, "pulsate", 3);
+       status = "responsive"
+   }

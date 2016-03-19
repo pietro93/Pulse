@@ -1,6 +1,7 @@
-﻿var ts = Date()
+﻿var ts = Date() // keeps time stamp of when the evaluation takes place, used to format output file name
 var combos = []
 
+// Generates a 7-point scale radio form for assessing valence or arousal
 function setRadioForm(form) {
     if (form == "Valence") { l1 = "Unpleasant"; l2 = "Pleasant" }
     else { l1 = "Calm"; l2 = "Excited"}
@@ -23,6 +24,7 @@ function setRadioForm(form) {
     '<div class="checkboxgroup" style="width: 70px"> <font class="l">' + l2 + '</font></div></fieldset>')
 }
 
+// Generates a form to ask for age and gender
 function setDemographics() {
     clear()
     $("container").append('<div style="height: 15%"></div>')
@@ -36,6 +38,7 @@ function setDemographics() {
     $("container").append('<input type="submit" name="next" id="NextButton" value="start" class="nextbutton" onclick="main()"/>')
 }
 
+// Displays forms on the screen
 function setForms() {
     $("container").append('<div style="height: 5%"></div>')
     setRadioForm('Valence');
@@ -65,12 +68,14 @@ function setForms() {
 
 }
 
+// Clears screen of any content
 function clear() {
     $("amoeba").empty()
     $("container").empty()
     stop()
 }
 
+// Gets value of radio button
 function getRadioValue(form) {
     var val;
     // get list of radio buttons with specified name
@@ -86,6 +91,7 @@ function getRadioValue(form) {
     return val; // return value of checked radio or undefined if none checked
 }
 
+// Submit function. Gets valence and arousal values from radio buttons and proceeds to next combo
 function submit() {
     val = getRadioValue(Valence)
     ars = getRadioValue(Arousal)
@@ -95,6 +101,7 @@ function submit() {
     nextCombo()
 }
 
+// Pops a random combination number from the queue and generates amoeba based on it
 function setCombo() {
     combo = combos.pop()
     
@@ -129,6 +136,7 @@ function setCombo() {
     createAmoeba(); setAmoeba(colour, edge, size, speed, audio)
 }
 
+// Sorts input combinations in random order for the experiment
 function setCarousel() {
     // populate array
     for (i = 1; i <= 48; i++) { combos.push(i) }
@@ -138,20 +146,22 @@ function setCarousel() {
     });
 }
 
+// Displays next combination in the queue (if any) for 7 seconds
 function nextCombo() {
     if (combos.length == 0) { complete(); return;;}
     setCombo()
     setTimeout(function () { clear(); setForms() }, 7000);
 }
 
+// Plays sound
 function setSound(sound) {
     this.sound = sound
     stop()
     playing = true; play(sound)
     }
 
+// Main
 function main() {
-    
     sessionStorage.setItem("gender", getRadioValue(demographics))
     sessionStorage.setItem("age", $("input[name='age']").val())
     console.log("Gender:" + sessionStorage.getItem("gender") + " Age:" + sessionStorage.getItem("age"));
@@ -162,6 +172,8 @@ function main() {
     nextCombo()
     }
 
+// Displays 'thank you' message on the screen
+// Generates CSV files containing data from current session and stores it on the device
 function complete() {
     clear();
 
@@ -178,7 +190,6 @@ function complete() {
     link.setAttribute("download", ts+".csv");
 
     link.click();
-
 
     $(container).append("<div class='thankyou'>Thank you</div>")
 }

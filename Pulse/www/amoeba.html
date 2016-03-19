@@ -9,9 +9,7 @@
     <!-- Custom CSS -->
     <link id="stylesheet" href="css/amoeba.css" rel="stylesheet" />
         
-    
     <!-- Custom Scripts -->
-    
     <script type="text/javascript" src="scripts/swipe.js"></script>
 
 </head>
@@ -29,7 +27,7 @@
             createAmoeba()
             neutralise();
             
-            //Set swiping properties
+            // Set swiping properties
             $("#container").swipe({
                 swipeUp: function (event, direction, distance, duration) {
                     switch(getStatus()){
@@ -64,6 +62,7 @@
                     console.log("Cooling down...")
                     printStatus();
                 },
+                // Swiping left or right will change the colour in a carousel fashion
                 swipeLeft: function (event, direction, distance, duration) {
                         colour--;
                         if (colour < -1) { colour = 2 };
@@ -76,9 +75,23 @@
                     setColour(colour);
                     console.log("Changing colour...")
                 },
+                // Tapping is for stopping or resuming sound
                 tap: function (event, target) {
                     if (playing) { stop(); setTimeout(function () {console.log("Audio stopped.")}, 3000) }
                     else { console.log("Audio started."); setTimeout(function () {setSound(sound)}, 3000) }
+                },
+                // Calling *easter egg* design with fear music 
+                swipeStatus: function (event, phase, direction, distance, duration, fingers) {
+                    if (status == "calm" && colour == 2  && (duration > 500)) {
+                        responsive();
+                        setSound(fear);
+                        printStatus();
+                    }
+                    if (status == "responsive" && (phase == ("end" || "cancel") || event.type == "touchend")) {
+                        cooldown();
+                        stop();
+                        printStatus();
+                    }
                 },
             });
 
